@@ -17,3 +17,6 @@ Route::get('/', function () {
 Route::get('/home', function (){
     return view("default");
 });
+Route::get('/profits',function (){
+    return view("profits.dashboard");
+});
