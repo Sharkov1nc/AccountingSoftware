@@ -15,8 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/home', function (){
-    return view("default");
-});
+    return view("dashboard");
+})->name('Home');
 Route::get('/profits',function (){
     return view("profits.dashboard");
 });
+Route::get('/timeline',function (){
+    return view("timeline");
+})->name("Timeline");
