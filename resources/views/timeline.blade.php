@@ -3,8 +3,7 @@
     <div class="page-head">
         <h2 class="page-head-title">Timeline</h2>
         <ol class="breadcrumb">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Pages</a></li>
+            <li><a href="{{route("Home")}}">Home</a></li>
             <li class="active">Timeline</li>
         </ol>
     </div>

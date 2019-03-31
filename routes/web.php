@@ -11,15 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/home', function (){
+Route::get('/', function (){
     return view("dashboard");
-})->name('Home');
+})->name("Home");
 Route::get('/profits',function (){
-    return view("profits.dashboard");
-});
+    return view("profits");
+})->name("Profits");
 Route::get('/timeline',function (){
     return view("timeline");
 })->name("Timeline");
+Route::get('/expenses',function (){
+    return view("expenses");
+})->name("Expenses");
