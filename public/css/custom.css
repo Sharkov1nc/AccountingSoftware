@@ -1,0 +1,18 @@
+.table > tbody > tr > td {
+    padding: 18px 12px !important;
+}
+.create-button {
+padding-right: 2%;
+}
+.table-title {
+    font-size: 16px;
+    font-weight: 300;
+}
+.table-title-create-button{
+    margin-bottom: -15px !important;
+}
+@media (min-width: 1919px) and (max-width: 1980px) {
+    .create-button {
+        padding-right: 1.5%;
+    }
+}

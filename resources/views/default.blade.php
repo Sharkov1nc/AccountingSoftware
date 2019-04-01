@@ -13,6 +13,7 @@
   <![endif]-->
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('amaretti/html/assets/lib/datatables/css/dataTables.bootstrap.min.css')}}"/>
     <link rel="stylesheet" href="{{ URL::asset('amaretti/html/assets/css/style.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{URL::asset('css/custom.css')}}">
 </head>
 <body>
 <div class="am-wrapper">
@@ -26,21 +27,18 @@
                     <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><img src="{{'amaretti/html/assets/img/avatar.jpg'}}"><span class="user-name">Samantha Amaretti</span><span class="angle-down s7-angle-down"></span></a>
                         <ul role="menu" class="dropdown-menu">
                             <li><a href="#"> <span class="icon s7-user"></span>My profile</a></li>
-                            <li><a href="#"> <span class="icon s7-config"></span>Settings</a></li>
-                            <li><a href="#"> <span class="icon s7-help1"></span>Help</a></li>
                             <li><a href="#"> <span class="icon s7-power"></span>Sign Out</a></li>
                         </ul>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav am-top-menu">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">Services <span class="angle-down s7-angle-down"></span></a>
+                    <li><a href="{{route("Home")}}">Home</a></li>
+                    <li><a href="{{route("Home")}}">Profile</a></li>
+                    <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">Quick menu <span class="angle-down s7-angle-down"></span></a>
                         <ul role="menu" class="dropdown-menu">
-                            <li><a href="#">UI Consulting</a></li>
-                            <li><a href="#">Web Development</a></li>
-                            <li><a href="#">Database Management</a></li>
-                            <li><a href="#">Seo Improvement</a></li>
+                            <li><a href="{{route("Profits")}}">Profits</a></li>
+                            <li><a href="{{route("Expenses")}}">Expenses</a></li>
+                            <li><a href="{{route("Clients")}}}}">Clients</a></li>
                         </ul>
                     </li>
                     <li><a href="#">Support</a></li>
@@ -102,64 +100,6 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><span class="icon s7-share"></span></a>
-                        <ul class="dropdown-menu am-connections">
-                            <li>
-                                <div class="title">Connections</div>
-                                <div class="list">
-                                    <div class="content">
-                                        <ul>
-                                            <li>
-                                                <div class="logo"><img src="{{'amaretti/html/assets/img/github.png'}}"></div>
-                                                <div class="field"><span>GitHub</span>
-                                                    <div class="switch-container">
-                                                        <div class="switch-button switch-button-sm">
-                                                            <input type="checkbox" checked="" name="check1" id="switch1"><span>
-                                  <label for="switch1"></label></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="logo"><img src="{{'amaretti/html/assets/img/bitbucket.png'}}"></div>
-                                                <div class="field"><span>Bitbucket</span>
-                                                    <div class="switch-container">
-                                                        <div class="switch-button switch-button-sm">
-                                                            <input type="checkbox" name="check2" id="switch2"><span>
-                                  <label for="switch2"></label></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="logo"><img src="{{'amaretti/html/assets/img/slack.png'}}"></div>
-                                                <div class="field"><span>Slack</span>
-                                                    <div class="switch-container">
-                                                        <div class="switch-button switch-button-sm">
-                                                            <input type="checkbox" checked="" name="check3" id="switch3"><span>
-                                  <label for="switch3"></label></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="logo"><img src="{{'amaretti/html/assets/img/dribbble.png'}}"></div>
-                                                <div class="field"><span>Dribbble</span>
-                                                    <div class="switch-container">
-                                                        <div class="switch-button switch-button-sm">
-                                                            <input type="checkbox" name="check4" id="switch4"><span>
-                                  <label for="switch4"> </label></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="footer"> <a href="#">View all connections</a></div>
-                            </li>
-                        </ul>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -177,11 +117,13 @@
                 </li>
                 <li class=""><a href="{{route("Expenses")}}"><i class="icon s7-calculator"></i><span>Expenses</span></a>
                 </li>
-                <li class=""><a href="#"><i class="icon s7-users"></i><span>Clients</span></a>
+                <li class=""><a href="{{route("Clients")}}"><i class="icon s7-users"></i><span>Clients</span></a>
                 </li>
                 <li class=""><a href="{{route("Timeline")}}"><i class="icon s7-shuffle"></i><span>Timeline</span></a>
                 </li>
                 <li class=""><a href="#"><i class="icon s7-config"></i><span>Settings</span></a>
+                </li>
+                <li class=""><a href="#"><i class="icon s7-call"></i><span>Support</span></a>
                 </li>
             </ul>
             <!--Sidebar bottom content-->
@@ -227,10 +169,6 @@
             "<'row am-datatable-body'<'col-sm-12'tr>>" +
             "<'row am-datatable-footer'<'col-sm-5'i><'col-sm-7'p>>",
             "lengthMenu": [[25, 50, 100], [25, 50, 100]],
-            buttons: [
-                'copy', 'excel', 'pdf'
-            ],
-
         });
         App.dashboard();
 

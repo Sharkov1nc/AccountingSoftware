@@ -1,10 +1,10 @@
 @extends('default')
 @section('content')
     <div class="page-head">
-        <h2 class="page-head-title">Profits</h2>
+        <h2 class="page-head-title">Clients</h2>
         <ol class="breadcrumb">
             <li><a href="{{route("Home")}}">Home</a></li>
-            <li class="active">Profits</li>
+            <li class="active">Clients</li>
         </ol>
     </div>
     <div class="main-content">
@@ -13,9 +13,9 @@
                 <div class="widget widget-fullwidth widget-small">
                     <div class="widget-head">
                         <div class="row table-title-create-button">
-                            <div class="table-title col-md-6">Profits</div>
+                            <div class="table-title col-md-6">Clients</div>
                             <div class="create-button col-md-6 text-right">
-                                <button class="btn btn-danger"> <span class="s7-plus" style="font-size: 16px;"> </span>Add Profit</button>
+                                <button class="btn btn-danger"> <span class="s7-plus" style="font-size: 16px;"> </span>Add Client</button>
                             </div>
                         </div>
                     </div>

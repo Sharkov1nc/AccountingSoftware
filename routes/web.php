@@ -23,3 +23,6 @@ Route::get('/timeline',function (){
 Route::get('/expenses',function (){
     return view("expenses");
 })->name("Expenses");
+Route::get('/clients',function (){
+    return view("clients");
+})->name("Clients");

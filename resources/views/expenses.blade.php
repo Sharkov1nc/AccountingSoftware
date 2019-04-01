@@ -12,10 +12,12 @@
             <div class="col-sm-12">
                 <div class="widget widget-fullwidth widget-small">
                     <div class="widget-head">
-                        <div class="tools">
-                            <button class="btn btn-danger"> <span class="s7-plus" style="font-size: 16px;"> </span>Add Expense</button>
+                        <div class="row table-title-create-button">
+                            <div class="table-title col-md-6">Expenses</div>
+                            <div class="create-button col-md-6 text-right">
+                                <button class="btn btn-danger"> <span class="s7-plus" style="font-size: 16px;"> </span>Add Expense</button>
+                            </div>
                         </div>
-                        <div class="title">Expenses</div>
                     </div>
                     <table id="profits-table" class="table table-striped table-hover table-fw-widget">
                         <thead>
