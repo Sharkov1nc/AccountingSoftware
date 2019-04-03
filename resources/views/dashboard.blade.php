@@ -7,7 +7,7 @@
                <div class="bottom">
                    <div class="user-avatar"><span class="status"></span><img src="{{URL::asset('amaretti/html/assets/img/avatar.jpg')}}"></div>
                    <div class="user-info">
-                       <h4>Samantha Amaretti</h4><span>I am a web developer and designer based in Montreal - Canada, I like read books, good music and nature.</span>
+                       <h4> @guest Samantha Amaretti @else {{\Illuminate\Support\Facades\Auth::user()->name}} @endguest </h4><span>I am a web developer and designer based in Montreal - Canada, I like read books, good music and nature.</span>
                    </div>
                </div>
            </div>

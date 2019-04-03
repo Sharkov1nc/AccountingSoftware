@@ -26,3 +26,17 @@ Route::get('/expenses',function (){
 Route::get('/clients',function (){
     return view("clients");
 })->name("Clients");
+
+
+Auth::routes();
+Route::get('/setup','HomeController@setup')->name('Setup');
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
