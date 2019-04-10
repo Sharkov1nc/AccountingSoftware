@@ -5,7 +5,7 @@ var App = (function () {
 
     //Summernote
     $('#editor1').summernote({
-      height: 300
+      height: 400
     });
     
   };

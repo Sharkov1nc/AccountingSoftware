@@ -8,10 +8,9 @@
     <title>AccountingSolution</title>
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('amaretti/html/assets/lib/stroke-7/style.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('amaretti/html/assets/lib/jquery.nanoscroller/css/nanoscroller.css') }}"/><!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('amaretti/html/assets/lib/datatables/css/dataTables.bootstrap.min.css') }}"/>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('amaretti/html/assets/lib/summernote/summernote.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('amaretti/html/assets/lib/font-awesome/css/font-awesome.min.css') }}"/>
     <link rel="stylesheet" href="{{ URL::asset('amaretti/html/assets/css/style.css') }}" type="text/css"/>
@@ -132,7 +131,27 @@
         </div>
     </div>
     <div class="am-content">
-        @yield("content")
+        <div class="page-head">
+            <h2 class="page-head-title">Support</h2>
+            <ol class="breadcrumb">
+                <li><a href="{{route("Home")}}">Home</a></li>
+                <li class="active">Support</li>
+            </ol>
+        </div>
+        <div class="main-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title">Send message to support</div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="editor1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -141,25 +160,6 @@
 <script src="{{ URL::asset('amaretti/html/assets/lib/jquery.nanoscroller/javascripts/jquery.nanoscroller.min.js') }}"></script>
 <script src="{{ URL::asset('amaretti/html/assets/js/main.js') }}"></script>
 <script src="{{ URL::asset('amaretti/html/assets/lib/bootstrap/dist/js/bootstrap.min.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/jquery-flot/jquery.flot.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/jquery-flot/jquery.flot.pie.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/jquery-flot/jquery.flot.resize.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/jquery-flot/plugins/jquery.flot.orderBars.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/jquery-flot/plugins/curvedLines.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/jquery.sparkline/jquery.sparkline.min.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/jquery-ui/jquery-ui.min.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/countup/countUp.min.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/chartjs/Chart.min.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/js/app-dashboard.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/skycons/skycons.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/datatables/js/jquery.dataTables.min.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/datatables/js/dataTables.bootstrap.min.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/datatables/plugins/buttons/js/dataTables.buttons.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/datatables/plugins/buttons/js/buttons.html5.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/datatables/plugins/buttons/js/buttons.flash.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/datatables/plugins/buttons/js/buttons.colVis.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/datatables/plugins/buttons/js/buttons.bootstrap.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('amaretti/html/assets/js/app-tables-datatables.js') }}" type="text/javascript"></script>
 <script src="{{ URL::asset('amaretti/html/assets/lib/summernote/summernote.min.js') }}" type="text/javascript"></script>
 <script src="{{ URL::asset('amaretti/html/assets/lib/summernote/summernote-ext-amaretti.js') }}" type="text/javascript"></script>
 <script src="{{ URL::asset('amaretti/html/assets/js/app-form-wysiwyg.js') }}" type="text/javascript"></script>
@@ -167,15 +167,6 @@
 
     $(document).ready(function(){
         App.init();
-        App.dataTables();
-        $('#profits-table').dataTable({
-            dom:
-            "<'row am-datatable-header'<'col-sm-6'l><'col-sm-6' f>>" +
-            "<'row am-datatable-body'<'col-sm-12'tr>>" +
-            "<'row am-datatable-footer'<'col-sm-5'i><'col-sm-7'p>>",
-            "lengthMenu": [[25, 50, 100], [25, 50, 100]],
-        });
-        App.dashboard();
         App.textEditors();
 
     });

@@ -26,17 +26,15 @@ Route::get('/expenses',function (){
 Route::get('/clients',function (){
     return view("clients");
 })->name("Clients");
+Route::get('/profile', function (){
+    return view("profile");
+})->name("Profile");
+Route::get('/support', function (){
+    return view("support");
+})->name("Support");
 
 
 Auth::routes();
-Route::get('/setup','HomeController@setup')->name('Setup');
 
-Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
