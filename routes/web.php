@@ -32,6 +32,9 @@ Route::get('/profile', function (){
 Route::get('/support', function (){
     return view("support");
 })->name("Support");
+Route::get('/clients/dashboard/{id}', function ($id) {
+    return view("clients.dashboard",["Client" => App\Clients::findOrFail($id)]);
+})->name("UserDashboard");
 
 
 Auth::routes();

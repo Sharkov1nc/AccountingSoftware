@@ -39,7 +39,7 @@
                             <td>Win 95+</td>
                             <td class="center"> 4</td>
                             <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
+                                <a href="{{route("UserDashboard",["id" => 1])}}" type="button" class="btn btn-primary"><i class="icon s7-menu"></i></a>
                                 <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
                                 <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
                                 <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
