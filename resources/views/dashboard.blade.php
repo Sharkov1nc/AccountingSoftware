@@ -1,4 +1,7 @@
 @extends('default')
+@section('libsCSS')
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('amaretti/html/assets/lib/summernote/summernote.css') }}"/>
+    @endsection
 @section('content')
     <div class="main-content">
         <div class="user-profile">
@@ -74,3 +77,7 @@
     </div>
 
 @endsection
+@section('libsJS')
+    <script src="{{ URL::asset('amaretti/html/assets/lib/summernote/summernote.min.js') }}" type="text/javascript"></script>
+    <script src="{{ URL::asset('amaretti/html/assets/lib/summernote/summernote-ext-amaretti.js') }}" type="text/javascript"></script>
+    @endsection

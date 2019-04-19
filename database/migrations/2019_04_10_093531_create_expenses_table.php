@@ -14,8 +14,16 @@ class CreateExpensesTable extends Migration
     public function up()
     {
         Schema::create('expenses', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->unsignedInteger('client_id');
+            $table->string("clarification");
+            $table->double("amount",2);
+            $table->unsignedInteger("created_by");
             $table->timestamps();
+        });
+        Schema::table('expenses', function (Blueprint $table) {
+            $table->foreign('client_id')->references('id')->on('clients');
+            $table->foreign('created_by')->references('id')->on('users');
         });
     }
 

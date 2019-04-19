@@ -24,7 +24,7 @@ Route::get('/expenses',function (){
     return view("expenses");
 })->name("Expenses");
 Route::get('/clients',function (){
-    return view("clients");
+    return view("clients",["Clients" => \App\Clients::all()]);
 })->name("Clients");
 Route::get('/profile', function (){
     return view("profile");
@@ -35,7 +35,9 @@ Route::get('/support', function (){
 Route::get('/clients/dashboard/{id}', function ($id) {
     return view("clients.dashboard",["Client" => App\Clients::findOrFail($id)]);
 })->name("UserDashboard");
-
+Route::get("/add_profits","ProfitsController@addProfits")->name("AddProfits");
+Route::get("/create_client","ClientController@createClient")->name("CreateClient");
+Route::get("/load_clients_datatable","ClientController@loadDataToDataTable")->name("LoadDataTableClient");
 
 Auth::routes();
 

@@ -17,7 +17,7 @@ class CreateClientsTable extends Migration
             $table->increments('id');
             $table->string('client',64);
             $table->string('contact_person',64);
-            $table->integer('type');
+            $table->boolean('type');
             $table->integer('phone');
             $table->string('email',64);
             $table->string('city',64);

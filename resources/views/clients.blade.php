@@ -1,4 +1,10 @@
 @extends('default')
+@section('libsCSS')
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('amaretti/html/assets/lib/datatables/css/dataTables.bootstrap.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('amaretti/html/assets/lib/select2/css/select2.min.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('amaretti/html/assets/lib/bootstrap-slider/css/bootstrap-slider.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('amaretti/html/assets/lib/datetimepicker/css/bootstrap-datetimepicker.min.css') }}"/>
+@endsection
 @section('content')
     <div class="page-head">
         <h2 class="page-head-title">Clients</h2>
@@ -15,494 +21,249 @@
                         <div class="row table-title-create-button">
                             <div class="table-title col-md-6">Clients</div>
                             <div class="create-button col-md-6 text-right">
-                                <button class="btn btn-danger"> <span class="s7-plus" style="font-size: 16px;"> </span>Add Client</button>
+                                <button data-toggle="modal" data-target="#md-custom" type="button" class="btn btn-space btn-primary"><span class="s7-plus" style="font-size: 16px;"> </span>Add Client</button>
                             </div>
                         </div>
                     </div>
-                    <table id="profits-table" class="table table-striped table-hover table-fw-widget">
+                    <table id="client-table" class="table table-striped table-hover table-fw-widget">
                         <thead>
-                        <tr>
-                            <th>Client</th>
-                            <th>Contact Person</th>
-                            <th>Type</th>
-                            <th>Something</th>
-                            <th>Actions</th>
-                        </tr>
+                            <tr>
+                                <th>Client</th>
+                                <th>Contact Person</th>
+                                <th>Type</th>
+                                <th>Phone Number</th>
+                                <th id="action-column">Actions</th>
+                            </tr>
                         </thead>
-                        <tbody>
-                        <tr class="odd gradeX">
-                            <td>A</td>
-                            <td>
-                                Internet
-                                Explorer 4.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td class="center"> 4</td>
-                            <td class="text-right center">
-                                <a href="{{route("UserDashboard",["id" => 1])}}" type="button" class="btn btn-primary"><i class="icon s7-menu"></i></a>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="even gradeC">
-                            <td>Trident</td>
-                            <td>
-                                Internet
-                                Explorer 5.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td class="center">5</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="odd gradeA">
-                            <td>Trident</td>
-                            <td>
-                                Internet
-                                Explorer 5.5
-                            </td>
-                            <td>Win 95+</td>
-                            <td class="center">5.5</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="even gradeA">
-                            <td>Trident</td>
-                            <td>
-                                Internet
-                                Explorer 6
-                            </td>
-                            <td>Win 98+</td>
-                            <td class="center">6</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="odd gradeA">
-                            <td>Trident</td>
-                            <td>Internet Explorer 7</td>
-                            <td>Win XP SP2+</td>
-                            <td class="center">7</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="even gradeA">
-                            <td>Trident</td>
-                            <td>AOL browser (AOL desktop)</td>
-                            <td>Win XP</td>
-                            <td class="center">6</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Gecko</td>
-                            <td>Firefox 1.0</td>
-                            <td>Win 98+ / OSX.2+</td>
-                            <td class="center">1.7</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Gecko</td>
-                            <td>Firefox 1.5</td>
-                            <td>Win 98+ / OSX.2+</td>
-                            <td class="center">1.8</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Gecko</td>
-                            <td>Firefox 2.0</td>
-                            <td>Win 98+ / OSX.2+</td>
-                            <td class="center">1.8</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Gecko</td>
-                            <td>Firefox 3.0</td>
-                            <td>Win 2k+ / OSX.3+</td>
-                            <td class="center">1.9</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Gecko</td>
-                            <td>Camino 1.0</td>
-                            <td>OSX.2+</td>
-                            <td class="center">1.8</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Gecko</td>
-                            <td>Camino 1.5</td>
-                            <td>OSX.3+</td>
-                            <td class="center">1.8</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Gecko</td>
-                            <td>Netscape 7.2</td>
-                            <td>Win 95+ / Mac OS 8.6-9.2</td>
-                            <td class="center">1.7</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Gecko</td>
-                            <td>Netscape Browser 8</td>
-                            <td>Win 98SE+</td>
-                            <td class="center">1.7</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Gecko</td>
-                            <td>Netscape Navigator 9</td>
-                            <td>Win 98+ / OSX.2+</td>
-                            <td class="center">1.8</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Gecko</td>
-                            <td>Mozilla 1.0</td>
-                            <td>Win 95+ / OSX.1+</td>
-                            <td class="center">1</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Gecko</td>
-                            <td>Mozilla 1.1</td>
-                            <td>Win 95+ / OSX.1+</td>
-                            <td class="center">1.1</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Gecko</td>
-                            <td>Mozilla 1.2</td>
-                            <td>Win 95+ / OSX.1+</td>
-                            <td class="center">1.2</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Gecko</td>
-                            <td>Mozilla 1.3</td>
-                            <td>Win 95+ / OSX.1+</td>
-                            <td class="center">1.3</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Gecko</td>
-                            <td>Mozilla 1.4</td>
-                            <td>Win 95+ / OSX.1+</td>
-                            <td class="center">1.4</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Gecko</td>
-                            <td>Mozilla 1.5</td>
-                            <td>Win 95+ / OSX.1+</td>
-                            <td class="center">1.5</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Gecko</td>
-                            <td>Mozilla 1.6</td>
-                            <td>Win 95+ / OSX.1+</td>
-                            <td class="center">1.6</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Gecko</td>
-                            <td>Mozilla 1.7</td>
-                            <td>Win 98+ / OSX.1+</td>
-                            <td class="center">1.7</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Gecko</td>
-                            <td>Mozilla 1.8</td>
-                            <td>Win 98+ / OSX.1+</td>
-                            <td class="center">1.8</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Gecko</td>
-                            <td>Seamonkey 1.1</td>
-                            <td>Win 98+ / OSX.2+</td>
-                            <td class="center">1.8</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Gecko</td>
-                            <td>Epiphany 2.20</td>
-                            <td>Gnome</td>
-                            <td class="center">1.8</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Webkit</td>
-                            <td>Safari 1.2</td>
-                            <td>OSX.3</td>
-                            <td class="center">125.5</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Webkit</td>
-                            <td>Safari 1.3</td>
-                            <td>OSX.3</td>
-                            <td class="center">312.8</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Webkit</td>
-                            <td>Safari 2.0</td>
-                            <td>OSX.4+</td>
-                            <td class="center">419.3</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Webkit</td>
-                            <td>Safari 3.0</td>
-                            <td>OSX.4+</td>
-                            <td class="center">522.1</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Webkit</td>
-                            <td>OmniWeb 5.5</td>
-                            <td>OSX.4+</td>
-                            <td class="center">420</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Webkit</td>
-                            <td>iPod Touch / iPhone</td>
-                            <td>iPod</td>
-                            <td class="center">420.1</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Webkit</td>
-                            <td>S60</td>
-                            <td>S60</td>
-                            <td class="center">413</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Presto</td>
-                            <td>Opera 7.0</td>
-                            <td>Win 95+ / OSX.1+</td>
-                            <td class="center">-</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Presto</td>
-                            <td>Opera 7.5</td>
-                            <td>Win 95+ / OSX.2+</td>
-                            <td class="center">-</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Presto</td>
-                            <td>Opera 8.0</td>
-                            <td>Win 95+ / OSX.2+</td>
-                            <td class="center">-</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Presto</td>
-                            <td>Opera 8.5</td>
-                            <td>Win 95+ / OSX.2+</td>
-                            <td class="center">-</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        <tr class="gradeA">
-                            <td>Presto</td>
-                            <td>Opera 9.0</td>
-                            <td>Win 95+ / OSX.3+</td>
-                            <td class="center">-</td>
-                            <td class="text-right center">
-                                <button type="button" class="btn btn-primary"><i class="icon s7-menu"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-pen"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-print"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="icon s7-trash"></i></button>
-                            </td>
-                        </tr>
-                        </tbody>
                     </table>
+                </div>
+            </div>
+            <div id="md-custom" role="dialog" class="modal fade modal-colored-header">
+                <div class="modal-dialog modal-custom-width">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" data-dismiss="modal" aria-hidden="true" class="close"><i class="icon s7-close"></i></button>
+                            <h3 class="modal-title">Add Profit</h3>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row wizard-row">
+                                <div class="col-md-12 fuelux">
+                                    <div class="block-wizard panel panel-default">
+                                        <div id="wizard1" class="wizard wizard-ux">
+                                            <ul class="steps">
+                                                <li data-step="1" id="step1" class="active">Step 1<span class="chevron"></span></li>
+                                                <li data-step="2" id="step2" >Step 2<span class="chevron"></span></li>
+                                                <li data-step="3" id="step3" >Step 3<span class="chevron"></span></li>
+                                            </ul>
+                                            <form action="{{route("CreateClient")}}" id="create-client" method="get" >
+                                                <div class="step-content">
+                                                    <div data-step="1" class="step-pane active">
+                                                        <div class="form-horizontal group-border-dashed">
+                                                            <div class="form-group no-padding">
+                                                                <div class="col-sm-7">
+                                                                    <h3 class="wizard-title">Client Information</h3>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Client</label>
+                                                                <div class="col-sm-6">
+                                                                    <input type="text" placeholder="Company name" name="client" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">City</label>
+                                                                <div class="col-sm-6">
+                                                                    <input type="text" placeholder="City" name="city" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Address</label>
+                                                                <div class="col-sm-6">
+                                                                    <input type="text" placeholder="Address" name="address" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-offset-2 col-sm-10">
+                                                                    <button class="btn btn-default btn-space" data-dismiss="modal">Cancel</button>
+                                                                    <button data-wizard="#wizard1" class="btn btn-primary btn-space wizard-next">Next Step <i class="icon s7-angle-right"></i></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div data-step="2" class="step-pane">
+                                                        <div class="form-horizontal group-border-dashed">
+                                                            <div class="form-group no-padding">
+                                                                <div class="col-sm-7">
+                                                                    <h3 class="wizard-title">Contact Information</h3>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Contact person</label>
+                                                                <div class="col-sm-6">
+                                                                    <input type="text" name="contact-person" placeholder="Contact person" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">Phone number</label>
+                                                                <div class="col-sm-6">
+                                                                    <input type="text" name="phone" placeholder="Phone number" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-sm-3 control-label">E-mail</label>
+                                                                <div class="col-sm-6">
+                                                                    <input type="text" name="email" placeholder="E-mail" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-12">
+                                                                    <button data-wizard="#wizard1" class="btn btn-default btn-space wizard-previous"><i class="icon s7-angle-left"></i> Previous</button>
+                                                                    <button data-wizard="#wizard1" class="btn btn-primary btn-space wizard-next">Next Step <i class="icon s7-angle-right"></i></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div data-step="3" class="step-pane">
+                                                        <div class="form-horizontal group-border-dashed">
+                                                            <div class="form-group no-padding">
+                                                                <div class="col-sm-7">
+                                                                    <h3 class="wizard-title">Client Type</h3>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-7">
+                                                                    <label class="control-label">Legal Entity</label>
+                                                                    <p>This option define client type.</p>
+                                                                </div>
+                                                                <div class="col-sm-3 xs-pt-15">
+                                                                    <div class="switch-button">
+                                                                        <input type="checkbox" checked="" name="type" id="swt1"><span>
+                                                                <label for="swt1"></label></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-sm-12">
+                                                                    <button data-wizard="#wizard1" class="btn btn-default btn-space wizard-previous"><i class="icon s7-angle-left"></i> Previous</button>
+                                                                    <button type="submit" class="btn btn-primary btn-space"><i class="icon s7-check"></i> Complete</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+@section('libsJS')
+    <script src="{{ URL::asset('amaretti/html/assets/lib/datatables/js/jquery.dataTables.min.js') }}" type="text/javascript"></script>
+    <script src="{{ URL::asset('amaretti/html/assets/lib/datatables/js/dataTables.bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ URL::asset('amaretti/html/assets/lib/datatables/plugins/buttons/js/dataTables.buttons.js') }}" type="text/javascript"></script>
+    <script src="{{ URL::asset('amaretti/html/assets/js/app-tables-datatables.js') }}" type="text/javascript"></script>
+    <script src="{{ URL::asset('amaretti/html/assets/lib/fuelux/js/wizard.js') }}" type="text/javascript"></script>
+    <script src="{{ URL::asset('amaretti/html/assets/lib/select2/js/select2.min.js') }}" type="text/javascript"></script>
+    <script src="{{ URL::asset('amaretti/html/assets/lib/datetimepicker/js/bootstrap-datetimepicker.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
 
+        // Wizard init
+        var App = (function () {
+            'use strict';
+
+            App.wizard = function( ){
+
+                //Fuel UX
+                $('.wizard-ux').wizard();
+
+                $('.wizard-ux').on('changed.fu.wizard',function(){
+                    //Bootstrap Slider
+                    $('.bslider').slider();
+                });
+
+                $(".wizard-next").click(function(e){
+                    var id = $(this).data("wizard");
+                    $(id).wizard('next');
+                    e.preventDefault();
+                });
+
+                $(".wizard-previous").click(function(e){
+                    var id = $(this).data("wizard");
+                    $(id).wizard('previous');
+                    e.preventDefault();
+                });
+
+                // Select2
+                $(".select2").select2({
+                    width: '100%'
+                });
+
+                //Select2 tags
+                $(".tags").select2({tags: true, width: '100%'});
+
+            };
+
+            return App;
+        })(App || {});
+
+        // Call Functions
+
+        App.wizard();
+        App.dataTables();
+        $('#client-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax : '{{route("LoadDataTableClient") }}',
+            columns: [
+                { data: "client" , name : "client" },
+                { data: "contact_person" , name : "contact_person" },
+                { data: "type" , name : "type" },
+                { data: "phone" , name : "phone" },
+                { data: "actions" , name : 'actions', searchable: false}
+            ],
+            columnDefs: [
+                { className: "text-right", "targets": [4] }
+            ],
+            dom:
+            "<'row am-datatable-header'<'col-sm-6'l><'col-sm-6' f>>" +
+            "<'row am-datatable-body'<'col-sm-12'tr>>" +
+            "<'row am-datatable-footer'<'col-sm-5'i><'col-sm-7'p>>",
+            "lengthMenu": [[25, 50, 100], [25, 50, 100]],
+        });
+        $("#action-column").removeClass('text-right');
+
+        //Form Ajax
+
+        let form = $("#create-client");
+        let modal = $("#md-custom");
+
+        form.submit(function (e) {
+
+            e.preventDefault();
+
+            $.ajax({
+                type: form.attr('method'),
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function () {
+                    modal.modal("hide");
+                    form[0].reset();
+                    $(".wizard-previous").click();
+                    let table = $('#client-table').DataTable();
+                    table.ajax.reload();
+
+                },
+                error: function () {
+                    console.log('Ajax failed to send the data.');
+                },
+            });
+        });
+
+    </script>
 @endsection

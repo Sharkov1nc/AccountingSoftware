@@ -14,8 +14,13 @@ class CreateTimelinesTable extends Migration
     public function up()
     {
         Schema::create('timelines', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->unsignedInteger("prepared_by");
+            $table->integer("action");
             $table->timestamps();
+        });
+        Schema::table('timelines', function (Blueprint $table) {
+            $table->foreign('prepared_by')->references('id')->on('users');
         });
     }
 

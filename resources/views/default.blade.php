@@ -11,9 +11,8 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('amaretti/html/assets/lib/datatables/css/dataTables.bootstrap.min.css') }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('amaretti/html/assets/lib/summernote/summernote.css') }}"/>
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('amaretti/html/assets/lib/font-awesome/css/font-awesome.min.css') }}"/>
+    @yield('libsCSS')
     <link rel="stylesheet" href="{{ URL::asset('amaretti/html/assets/css/style.css') }}" type="text/css"/>
     <link rel="stylesheet" href="{{ URL::asset('css/custom.css') }}">
 </head>
@@ -135,48 +134,16 @@
         @yield("content")
     </div>
 </div>
-
-
 <script src="{{ URL::asset('amaretti/html/assets/lib/jquery/jquery.min.js') }}"></script>
 <script src="{{ URL::asset('amaretti/html/assets/lib/jquery.nanoscroller/javascripts/jquery.nanoscroller.min.js') }}"></script>
 <script src="{{ URL::asset('amaretti/html/assets/js/main.js') }}"></script>
 <script src="{{ URL::asset('amaretti/html/assets/lib/bootstrap/dist/js/bootstrap.min.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/jquery-flot/jquery.flot.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/jquery-flot/jquery.flot.pie.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/jquery-flot/jquery.flot.resize.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/jquery-flot/plugins/jquery.flot.orderBars.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/jquery-flot/plugins/curvedLines.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/jquery.sparkline/jquery.sparkline.min.js') }}" ></script>
 <script src="{{ URL::asset('amaretti/html/assets/lib/jquery-ui/jquery-ui.min.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/countup/countUp.min.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/chartjs/Chart.min.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/js/app-dashboard.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/skycons/skycons.js') }}" ></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/datatables/js/jquery.dataTables.min.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/datatables/js/dataTables.bootstrap.min.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/datatables/plugins/buttons/js/dataTables.buttons.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/datatables/plugins/buttons/js/buttons.html5.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/datatables/plugins/buttons/js/buttons.flash.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/datatables/plugins/buttons/js/buttons.colVis.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/datatables/plugins/buttons/js/buttons.bootstrap.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('amaretti/html/assets/js/app-tables-datatables.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/summernote/summernote.min.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('amaretti/html/assets/lib/summernote/summernote-ext-amaretti.js') }}" type="text/javascript"></script>
-<script src="{{ URL::asset('amaretti/html/assets/js/app-form-wysiwyg.js') }}" type="text/javascript"></script>
+@yield('libsJS')
 <script>
 
     $(document).ready(function(){
         App.init();
-        App.dataTables();
-        $('#profits-table').dataTable({
-            dom:
-            "<'row am-datatable-header'<'col-sm-6'l><'col-sm-6' f>>" +
-            "<'row am-datatable-body'<'col-sm-12'tr>>" +
-            "<'row am-datatable-footer'<'col-sm-5'i><'col-sm-7'p>>",
-            "lengthMenu": [[25, 50, 100], [25, 50, 100]],
-        });
-        App.dashboard();
-        App.textEditors();
 
     });
 </script>
