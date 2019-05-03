@@ -15,7 +15,7 @@ Route::get('/', function (){
     return view("dashboard");
 })->name("Home");
 Route::get('/profits',function (){
-    return view("profits");
+    return view("profits",["Clients" => \App\Clients::all("id","client")]);
 })->name("Profits");
 Route::get('/timeline',function (){
     return view("timeline");
@@ -24,7 +24,7 @@ Route::get('/expenses',function (){
     return view("expenses");
 })->name("Expenses");
 Route::get('/clients',function (){
-    return view("clients",["Clients" => \App\Clients::all()]);
+    return view("clients");
 })->name("Clients");
 Route::get('/profile', function (){
     return view("profile");
@@ -35,9 +35,10 @@ Route::get('/support', function (){
 Route::get('/clients/dashboard/{id}', function ($id) {
     return view("clients.dashboard",["Client" => App\Clients::findOrFail($id)]);
 })->name("UserDashboard");
-Route::get("/add_profits","ProfitsController@addProfits")->name("AddProfits");
+Route::post("/add_profits","ProfitsController@addProfits")->name("AddProfits");
 Route::get("/create_client","ClientController@createClient")->name("CreateClient");
-Route::get("/load_clients_datatable","ClientController@loadDataToDataTable")->name("LoadDataTableClient");
+Route::get("/load_clients_datatable","ClientController@loadDataToDataTable")->name("LoadDataTableClients");
+Route::get("/load_profits_datatable","ProfitsController@loadDataToDataTable")->name("LoadDataTableProfits");
 
 Auth::routes();
 

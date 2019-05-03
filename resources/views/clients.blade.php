@@ -219,7 +219,7 @@
         $('#client-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax : '{{route("LoadDataTableClient") }}',
+            ajax : '{{route("LoadDataTableClients") }}',
             columns: [
                 { data: "client" , name : "client" },
                 { data: "contact_person" , name : "contact_person" },

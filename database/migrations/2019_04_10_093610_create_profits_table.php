@@ -16,6 +16,7 @@ class CreateProfitsTable extends Migration
         Schema::create('profits', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('client_id');
+            $table->timestamp("date");
             $table->string("clarification");
             $table->double("amount",2);
             $table->unsignedInteger("created_by");

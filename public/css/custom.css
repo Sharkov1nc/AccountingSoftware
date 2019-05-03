@@ -22,3 +22,8 @@ padding-right: 2%;
 .modal-custom-width{
     width: 66%;
 }
+.new-item{
+    width: 100%;
+    height: 42px;
+    font-size: 18px;
+}
