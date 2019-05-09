@@ -53,7 +53,6 @@
                                             <ul class="steps">
                                                 <li data-step="1" id="step1" class="active">Step 1<span class="chevron"></span></li>
                                                 <li data-step="2" id="step2" >Step 2<span class="chevron"></span></li>
-                                                <li data-step="3" id="step3" >Step 3<span class="chevron"></span></li>
                                             </ul>
                                             <form action="{{route("AddProfits")}}" id="add-profits-form" method="post">
                                                 @csrf
@@ -68,31 +67,35 @@
                                                             <div class="form-group">
                                                                 <label class="col-sm-3 control-label">Client</label>
                                                                 <div class="col-sm-6">
-                                                                    <select class="select2" name="client">
+                                                                    <select class="select2" name="client" id="client-select">
                                                                        @foreach($Clients as $client )
                                                                             <option value="{{$client->id}}">{{$client->client}}</option>
                                                                            @endforeach
                                                                     </select>
+                                                                   <div style="color: #ff0000; font-size: 13px; margin-top: 5px; font-weight: bold" id="client-error" class="hide validation-errors"></div>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="col-sm-3 control-label">Date </label>
                                                                 <div class="col-sm-6">
                                                                     <div data-min-view="2" style="width :100%" data-date-format="yyyy-mm-dd" class="input-group date datetimepicker col-md-5 col-xs-7">
-                                                                        <input id="datepicker-1" type="text" name="date" class="form-control"><span class="input-group-addon btn btn-primary"><i class="icon-th s7-date"></i></span>
+                                                                        <input id="datepicker-1" type="text" name="date" value="{{old("date")}}" class="form-control"><span class="input-group-addon btn btn-primary"><i class="icon-th s7-date"></i></span>
+                                                                        <div style="color: #ff0000; font-size: 13px; margin-top: 5px; font-weight: bold" id="date-error" class="hide validation-errors"></div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="col-sm-3 control-label">Clarification</label>
                                                                 <div class="col-sm-6">
-                                                                    <input type="text" name="clarification" placeholder="Clarification" class="form-control">
+                                                                    <input type="text" name="clarification" id="clarification" value="{{old("clarification")}}" placeholder="Clarification" class="form-control">
+                                                                    <div style="color: #ff0000; font-size: 13px; margin-top: 5px; font-weight: bold" id="clarification-error" class="hide validation-errors"></div>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="col-sm-3 control-label">Amount</label>
                                                                 <div class="col-sm-6">
-                                                                    <input type="text" name="amount" placeholder="Profit amount" class="form-control">
+                                                                    <input type="text" name="amount" id="amount" value="{{old("amount")}}" placeholder="Profit amount" class="form-control">
+                                                                    <div style="color: #ff0000; font-size: 13px; margin-top: 5px; font-weight: bold" id="amount-error" class="hide validation-errors"></div>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -116,64 +119,10 @@
                                                                     <input type="text" name="item-1" placeholder="Item..." class="form-control">
                                                                 </div>
                                                                 <div class="col-sm-3">
-                                                                    <input type="text" name="price-1" placeholder="Item price..." class="form-control">
+                                                                    <input type="text" name="item-price-1" placeholder="Item price..." class="form-control">
                                                                 </div>
                                                                 <div class="col-md-1">
                                                                     <button class="btn btn-primary new-item" type="button" ><span class="s7-plus"></span></button>
-                                                                </div>
-                                                            </div>
-                                                            <input type="hidden" id="input-count" name="input-count" value="1">
-                                                            <div class="form-group">
-                                                                <div class="col-sm-12">
-                                                                    <button data-wizard="#wizard1" class="btn btn-default btn-space wizard-previous"><i class="icon s7-angle-left"></i> Previous</button>
-                                                                    <button data-wizard="#wizard1" class="btn btn-primary btn-space wizard-next">Next Step <i class="icon s7-angle-right"></i></button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div data-step="3" class="step-pane">
-                                                        <div class="form-horizontal group-border-dashed">
-                                                            <div class="form-group no-padding">
-                                                                <div class="col-sm-7">
-                                                                    <h3 class="wizard-title">Configuration</h3>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-6">
-                                                                    <label class="control-label">Buy Credits: <span id="credits">$30</span></label>
-                                                                    <p>This option allow you to buy an amount of credits.</p>
-                                                                    <input id="credit_slider" type="text" value="30" class="bslider form-control">
-                                                                </div>
-                                                                <div class="col-sm-6">
-                                                                    <label class="control-label">Change Plan</label>
-                                                                    <p>Change your plan many times as you want.</p>
-                                                                    <select class="select2">
-                                                                        <optgroup label="Personal">
-                                                                            <option value="p1">Basic</option>
-                                                                            <option value="p2">Medium</option>
-                                                                        </optgroup>
-                                                                        <optgroup label="Company">
-                                                                            <option value="p3">Standard</option>
-                                                                            <option value="p4">Silver</option>
-                                                                            <option value="p5">Gold</option>
-                                                                        </optgroup>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <div class="col-sm-6">
-                                                                    <label class="control-label">Payment Rate: <span id="rate">5%</span></label>
-                                                                    <p>Choose your payment rate to calculate how much money you will recieve.</p>
-                                                                    <input id="rate_slider" data-slider-min="0" data-slider-max="100" type="text" value="5" class="bslider form-control">
-                                                                </div>
-                                                                <div class="col-sm-6">
-                                                                    <label class="control-label">Keywords</label>
-                                                                    <p>Write your keywords to do a successful SEO with web search engines.</p>
-                                                                    <select multiple="" class="tags">
-                                                                        <option value="1">Twitter</option>
-                                                                        <option value="2">Google</option>
-                                                                        <option value="3">Facebook</option>
-                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -255,11 +204,11 @@
             serverSide: true,
             ajax : '{{route("LoadDataTableProfits") }}',
             columns: [
-                { data: "client" , name : "client" , width : "20%"},
-                { data: "date" , name : "date" , width : "14%"},
-                { data: "clarification" , name : "clarification" , width : "32%"},
-                { data: "amount" , name : "amount" , width : "14%"},
-                { data: "actions" , name : 'actions', searchable: false , width : "20%"}
+                { data: "client" , name : "client" , width : "20%" },
+                { data: "date" , name : "date" , width : "20%" },
+                { data: "clarification" , name : "clarification" , width : "20%" },
+                { data: "amount" , name : "amount" , width : "20%" },
+                { data: "actions" , name : 'actions', width : "20%"}
             ],
             columnDefs: [
                 { className: "text-right", "targets": [4] }
@@ -280,6 +229,7 @@
             }
         });
 
+
         //Form Ajax
 
         let form = $("#add-profits-form");
@@ -293,13 +243,39 @@
                 type: form.attr('method'),
                 url: form.attr('action'),
                 data: form.serialize(),
-                success: function () {
-                    modal.modal("hide");
-                    form[0].reset();
-                    $(".wizard-previous").click();
-                    let table = $('#profits-table').DataTable();
-                    table.ajax.reload();
-                    clearDynamicInputFields();
+                success: function (data) {
+                    let clientInput = $("#client-select");
+                    let dateInput = $("#datepicker-1");
+                    let clarificationInput = $("#clarification");
+                    let amountInput = $("#amount");
+
+                    if (data.errors){
+                        if(data.errors.client){
+                            clientInput.addClass("bdc-red");
+                            $("#client-error").html(data.errors.client).removeClass("hide");
+                        }
+                        if(data.errors.date){
+                            dateInput.addClass("bdc-red");
+                            $("#date-error").html(data.errors.date).removeClass("hide");
+                        }
+                        if(data.errors.clarification){
+                            clarificationInput.addClass("bdc-red");
+                            $("#clarification-error").html(data.errors.clarification).removeClass("hide");
+                        }
+                        if(data.errors.amount){
+                            amountInput.addClass("bdc-red");
+                            $("#amount-error").html(data.errors.amount).removeClass("hide");
+                        }
+                    } else {
+                        $(".validation-errors").addClass("hide");
+                        $(".form-control").removeClass("bdc-red");
+                        modal.modal("hide");
+                        form[0].reset();
+                        $(".wizard-previous").click();
+                        let table = $('#profits-table').DataTable();
+                        table.ajax.reload();
+                        clearDynamicInputFields();
+                    }
                 },
                 error: function () {
                     console.log('Ajax failed to send the data.');
@@ -308,15 +284,13 @@
         });
         let currentItemPosition = $(".item-position-1");
         let elementsCount = 2;
-        let inputCount = $("#input-count");
         let dynamicInputField = () => {
             $(document).on('click', '.new-item' , function() {
-                let newItemPosition = '<div class="form-group item-position-'+ elementsCount +'"><label class="col-sm-2 control-label">Item Position :</label> <div class="col-sm-6"> <input type="text" name="item-'+ elementsCount +'" placeholder="Item..." class="form-control"> </div> <div class="col-sm-3"> <input type="text" name="price-'+ elementsCount +'" placeholder="Item price..." class="form-control"> </div> <div class="col-md-1"> <button class="btn btn-primary new-item" type="button" ><span class="s7-plus"></span></button> </div> </div>';
+                let newItemPosition = '<div class="form-group item-position-'+ elementsCount +'"><label class="col-sm-2 control-label">Item Position :</label> <div class="col-sm-6"> <input type="text" name="item-'+ elementsCount +'" placeholder="Item..." class="form-control"> </div> <div class="col-sm-3"> <input type="text" name="item-price-'+ elementsCount +'" placeholder="Item price..." class="form-control"> </div> <div class="col-md-1"> <button class="btn btn-primary new-item" type="button" ><span class="s7-plus"></span></button> </div> </div>';
                 currentItemPosition.after(newItemPosition);
                 elementsCount++;
                 let element = ".item-position-" + (elementsCount-1);
                 currentItemPosition =  $(element);
-                inputCount.val(elementsCount-1);
             });
         };
 
@@ -325,12 +299,28 @@
                 for (let i= elementsCount-1; i > 1; i--){
                     let element = ".item-position-" + i;
                     $(element).remove();
-                    inputCount.val(1);
                 }
             }
        };
 
        dynamicInputField();
+
+        $(document).on('click', '.remove-profit' , function() {
+           let profitID = this.name;
+            $.ajax({
+                type: "GET",
+                url: "{{route("RemoveProfit")}}",
+                data: { id : profitID},
+                success: function (data) {
+                    let table = $('#profits-table').DataTable();
+                    table.ajax.reload();
+                    console.log(data);
+                },
+                error: function () {
+                    console.log('Remove Profit Failed');
+                },
+            });
+        });
 
     </script>
 @endsection

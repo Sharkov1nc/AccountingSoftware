@@ -31,10 +31,10 @@ class ClientController extends Controller
        return DataTables::of($clients)
            ->addColumn(
            "actions",function ($clients){
-               return '<a href="'.route("UserDashboard",["id" => $clients->id]).'" type="button" class="btn btn-primary"><i class="icon s7-menu"></i></a>
-                       <a href="'.route("UserDashboard",["id" => $clients->id]).'" type="button" class="btn btn-primary"><i class="icon s7-pen"></i></a>
-                       <a href="'.route("UserDashboard",["id" => $clients->id]).'" type="button" class="btn btn-primary"><i class="icon s7-print"></i></a>
-                       <a href="'.route("UserDashboard",["id" => $clients->id]).'" type="button" class="btn btn-primary"><i class="icon s7-trash"></i></a>
+               return '<a href="'.route("ClientsDashboard",["id" => $clients->id]).'" type="button" class="btn btn-primary"><i class="icon s7-menu"></i></a>
+                       <a href="'.route("ClientsDashboard",["id" => $clients->id]).'" type="button" class="btn btn-primary"><i class="icon s7-pen"></i></a>
+                       <a href="'.route("ClientsDashboard",["id" => $clients->id]).'" type="button" class="btn btn-primary"><i class="icon s7-print"></i></a>
+                       <a href="'.route("ClientsDashboard",["id" => $clients->id]).'" type="button" class="btn btn-primary"><i class="icon s7-trash"></i></a>
                       ';
         })
            ->addColumn(

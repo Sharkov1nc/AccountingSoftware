@@ -27,3 +27,6 @@ padding-right: 2%;
     height: 42px;
     font-size: 18px;
 }
+.bdc-red{
+    border-color: #ff0000;
+}

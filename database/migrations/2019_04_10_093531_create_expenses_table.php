@@ -18,7 +18,7 @@ class CreateExpensesTable extends Migration
             $table->unsignedInteger('client_id');
             $table->string("clarification");
             $table->timestamp("date");
-            $table->double("amount",2);
+            $table->double("amount",2)->nullable(true);
             $table->unsignedInteger("created_by");
             $table->timestamps();
         });

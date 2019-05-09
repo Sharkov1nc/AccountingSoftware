@@ -20,5 +20,9 @@ class Profits extends Model
     {
         return $this->belongsTo('App\Clients');
     }
+    public function createdBy()
+    {
+        return $this->belongsTo('App\User','created_by');
+    }
 
 }

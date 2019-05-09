@@ -221,11 +221,11 @@
             serverSide: true,
             ajax : '{{route("LoadDataTableClients") }}',
             columns: [
-                { data: "client" , name : "client" },
-                { data: "contact_person" , name : "contact_person" },
-                { data: "type" , name : "type" },
-                { data: "phone" , name : "phone" },
-                { data: "actions" , name : 'actions', searchable: false}
+                { data: "client" , name : "client" , width : "20%"},
+                { data: "contact_person" , name : "contact_person" , width : "20%"},
+                { data: "type" , name : "type" , width : "20%"},
+                { data: "phone" , name : "phone" , width : "20%"},
+                { data: "actions" , name : 'actions', width : "20%"}
             ],
             columnDefs: [
                 { className: "text-right", "targets": [4] }

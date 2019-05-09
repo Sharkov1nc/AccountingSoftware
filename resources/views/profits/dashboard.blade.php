@@ -1,0 +1,93 @@
+@extends("default")
+@section("libsCSS")
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('amaretti/html/assets/lib/datatables/css/dataTables.bootstrap.min.css') }}"/>
+@endsection
+@section("content")
+    <div class="page-head">
+        <h3 class="page-head-title">{{$profit->clarification}}</h3>
+        <ol class="breadcrumb">
+            <li><a href="{{route("Home")}}">Home</a></li>
+            <li><a href="{{route("Profits")}}">Profits</a></li>
+            <li><a href="{{route("ClientsDashboard",["id" => $profit->client->id])}}">{{$profit->client->client}}</a></li>
+            <li class="active">{{$profit->clarification}}</li>
+        </ol>
+    </div>
+    <div class="main-content">
+        <div class="row">
+            <div class="col-sm-12">
+               <div class="panel panel-default">
+                  <div class="panel-body">
+                      <div class="row dashboard-information">
+                          <br>
+                          <div class="col-md-4">
+                              <ul style="list-style-type:none;">
+                                  <li>Clarification : <a href="">{{$profit->clarification}}</a></li> <br>
+                                  <li>Date : <a href="">{{substr($profit->date,0,10)}}</a></li> <br>
+                                  <li>Amount : <a href="">{{number_format($profit->amount, 2, ',', ' ') .'‎ €'}}</a></li> <br>
+                              </ul>
+                          </div>
+                          <div class="col-md-4">
+                              <ul style="list-style-type:none;">
+                                  <li>Client : <a href="">{{$profit->client->client}}</a></li> <br>
+                                  <li>Contact Person : <a href="">{{$profit->client->contact_person}}</a></li> <br>
+                                  <li>Phone Number : <a href="">{{'0'. $profit->client->phone}}</a></li> <br>
+                              </ul>
+                          </div>
+                          <div class="col-md-4">
+                              <ul style="list-style-type:none;">
+                                  <li>Created By : <a href="">{{$profit->createdBy->name}}</a></li> <br>
+                                  <li>Client Type : <a href="">@if($profit->client->type) Legal Entity @else Individual @endif </a></li> <br>
+                                  <li>Related Items : <a href="">{{count($profitDetails)}}</a></li> <br>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+               </div>
+                <div class="widget widget-fullwidth widget-small">
+                    <div class="widget-head">
+                        <div class="row table-title-create-button">
+                            <div class="table-title col-md-6">{{$profit->clarification . " Details"}}</div>
+                        </div>
+                    </div>
+                    <br>
+                    <table id="profits-table" class="table table-striped table-hover table-fw-widget">
+                        <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Amount</th>
+                            <th id="action-column" class="text-right">Actions</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endsection
+@section("libsJS")
+    <script src="{{ URL::asset('amaretti/html/assets/lib/datatables/js/jquery.dataTables.min.js') }}" type="text/javascript"></script>
+    <script src="{{ URL::asset('amaretti/html/assets/lib/datatables/js/dataTables.bootstrap.min.js') }}" type="text/javascript"></script>
+    <script src="{{ URL::asset('amaretti/html/assets/lib/datatables/plugins/buttons/js/dataTables.buttons.js') }}" type="text/javascript"></script>
+    <script src="{{ URL::asset('amaretti/html/assets/js/app-tables-datatables.js') }}" type="text/javascript"></script>
+    <script>
+        App.dataTables();
+        $('#profits-table').dataTable({
+            processing: true,
+            serverSide: true,
+            ajax : '{{route("LoadProfitDetailsData",["id" => $profit->id]) }}',
+            columns: [
+                { data: "item_position" , name : "item_position" , width : "60%" },
+                { data: "amount" , name : "amount" , width : "20%" },
+                { data: "actions" , name : 'actions', width : "20%"}
+            ],
+            columnDefs: [
+                { className: "text-right", "targets": [2] }
+            ],
+            dom:
+            "<'row am-datatable-header'<'col-sm-6'l><'col-sm-6' f>>" +
+            "<'row am-datatable-body'<'col-sm-12'tr>>" +
+            "<'row am-datatable-footer'<'col-sm-5'i><'col-sm-7'p>>",
+            "lengthMenu": [[10, 25, 50], [10, 25, 50]],
+        });
+    </script>
+    @endsection

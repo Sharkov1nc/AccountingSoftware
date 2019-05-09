@@ -34,11 +34,15 @@ Route::get('/support', function (){
 })->name("Support");
 Route::get('/clients/dashboard/{id}', function ($id) {
     return view("clients.dashboard",["Client" => App\Clients::findOrFail($id)]);
-})->name("UserDashboard");
+})->name("ClientsDashboard");
 Route::post("/add_profits","ProfitsController@addProfits")->name("AddProfits");
 Route::get("/create_client","ClientController@createClient")->name("CreateClient");
 Route::get("/load_clients_datatable","ClientController@loadDataToDataTable")->name("LoadDataTableClients");
 Route::get("/load_profits_datatable","ProfitsController@loadDataToDataTable")->name("LoadDataTableProfits");
+Route::get("/remove_profit","ProfitsController@removeProfit")->name("RemoveProfit");
+Route::get("/generate_pdf","ProfitsController@printProfit")->name("PrintProfit");
+Route::get("/profits/dashboard/{id}","ProfitsController@dashboard")->name("ProfitsDashboard");
+Route::get("/profits/load_profit_details_data/{id}","ProfitsController@loadProfitDetailsData")->name("LoadProfitDetailsData");
 
 Auth::routes();
 

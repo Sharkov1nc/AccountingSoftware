@@ -18,7 +18,7 @@ class CreateProfitsTable extends Migration
             $table->unsignedInteger('client_id');
             $table->timestamp("date");
             $table->string("clarification");
-            $table->double("amount",2);
+            $table->double("amount",2)->nullable(true);
             $table->unsignedInteger("created_by");
             $table->timestamps();
         });
