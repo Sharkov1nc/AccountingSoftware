@@ -63,6 +63,44 @@
             </div>
         </div>
     </div>
+    <div id="md-custom" role="dialog" class="modal fade modal-colored-header">
+        <div class="modal-dialog modal-custom-width">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" data-dismiss="modal" aria-hidden="true" class="close"><i class="icon s7-close"></i></button>
+                    <h3 class="modal-title">Update Profit Detail</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row wizard-row">
+                        <form action="{{route("UpdateProfitDetail")}}" id="update-profits-detail-form" method="get">
+                            <div class="form-horizontal group-border-dashed">
+                                <div class="form-group no-padding">
+                                    <div class="form-group">
+                                        <br>
+                                        <label class="col-sm-2 control-label">Item Position :</label>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="item" placeholder="Item..." id="item" class="form-control">
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="text" name="item-price" placeholder="Item price..." id="item-price" class="form-control">
+                                        </div>
+                                        <input type="hidden" id="profit-detail-id" name="pd-id">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12 text-right">
+                                    <br>
+                                    <button type="submit" class="btn btn-primary btn-space"><i class="icon s7-check"></i> Save</button>
+                                    <button class="btn btn-default btn-space" data-dismiss="modal"> Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     @endsection
 @section("libsJS")
     <script src="{{ URL::asset('amaretti/html/assets/lib/datatables/js/jquery.dataTables.min.js') }}" type="text/javascript"></script>
@@ -71,6 +109,9 @@
     <script src="{{ URL::asset('amaretti/html/assets/js/app-tables-datatables.js') }}" type="text/javascript"></script>
     <script>
         App.dataTables();
+
+        // Load Data To Table
+
         $('#profits-table').dataTable({
             processing: true,
             serverSide: true,
@@ -89,5 +130,84 @@
             "<'row am-datatable-footer'<'col-sm-5'i><'col-sm-7'p>>",
             "lengthMenu": [[10, 25, 50], [10, 25, 50]],
         });
+
+        // Remove Profit Detail Ajax
+
+        $(document).on('click', '.remove-profit-detail' , function() {
+            let profitID = this.name;
+            $.ajax({
+                type: "GET",
+                url: "{{route("RemoveProfitDetail")}}",
+                data: { id : profitID},
+                success: function () {
+                    let table = $('#profits-table').DataTable();
+                    table.ajax.reload();
+                },
+                error: function () {
+                    console.log('Remove Profit Detail Failed');
+                },
+            });
+        });
+
+        // Update Profit Detail Modal
+
+        let modal = $("#md-custom");
+
+        // Edit Profit Detail
+
+        $(document).on('click', '.update-profit-detail' , function() {
+            let profitID = this.name;
+            $.ajax({
+                type: "GET",
+                url: "{{route("LoadProfitDetailDataToModal")}}",
+                data: { id : profitID},
+                success: function (data) {
+                    modal.modal("show");
+                    $("#item").val(data.profitDetail.item_position);
+                    $("#item-price").val(data.profitDetail.item_price);
+                    $("#profit-detail-id").val(profitID);
+                },
+                error: function () {
+                    console.log('Update Profit Detail Failed');
+                },
+            });
+        });
+
+        // Update Profit Form Send Ajax
+
+        let form = $("#update-profits-detail-form");
+
+        form.submit(function (e) {
+
+            e.preventDefault();
+
+            $.ajax({
+                type: form.attr('method'),
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function (data) {
+                    let item = $("#item");
+                    let itemPrice = $("#item-price");
+                    if (data.errors){
+                        if(data.errors.item){
+                            item.addClass("bdc-red");
+                        }
+                        if(data.errors.item_price){
+                            itemPrice.addClass("bdc-red");
+                        }
+                    } else {
+                        $(".form-control").removeClass("bdc-red");
+                        modal.modal("hide");
+                        form[0].reset();
+                        let table = $('#profits-table').DataTable();
+                        table.ajax.reload();
+                    }
+                },
+                error: function () {
+                    console.log('Update Profit Detail Failed');
+                },
+            });
+        });
+
     </script>
     @endsection

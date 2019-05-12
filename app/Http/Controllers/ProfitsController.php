@@ -21,8 +21,6 @@ class ProfitsController extends Controller
 {
     public function addProfits(Request $request){
 
-        $this->middleware("auth");
-
         $validator = Validator::make($request->all(),[
             "client" => "required",
             "date" => "required",
@@ -36,27 +34,30 @@ class ProfitsController extends Controller
             $response = ["errors" => $validator->errors()];
             return Response::json($response);
         }
-
-       $profit = Profits::create([
-           "client_id" => $request->get("client"),
-           "date" => $request->get("date"),
-           "clarification" => $request->get("clarification"),
-           "amount" => $request->get("amount"),
-           "created_by" => Auth::user()->getAuthIdentifier()
-       ]);
+        $profitSum = 0;
+        $profit = Profits::firstOrCreate([
+            "client_id" => $request->get("client"),
+            "date" => $request->get("date"),
+            "clarification" => $request->get("clarification"),
+            "amount" => null,
+            "created_by" => Auth::user()->getAuthIdentifier()
+        ]);
         $i = 1;
         while (1){
             if ($request->exists('item-'.$i.'')) {
-                ProfitsDetails::create([
+               $pD = ProfitsDetails::create([
                     "item_position" => $request->get('item-'.$i.''),
                     "item_price" => $request->get('item-price-'.$i.''),
                     "profit_id" => $profit->id
                 ]);
+                $profitSum += $pD->item_price;
                 $i++;
             } else {
                 break;
             }
         }
+        $profit->amount = $profitSum;
+        $profit->save();
     }
 
     public function removeProfit(Request $request){
@@ -70,6 +71,7 @@ class ProfitsController extends Controller
             }
             $profit->delete();
         }
+        return;
     }
 
     public function printProfit(Request $request){
@@ -119,8 +121,8 @@ class ProfitsController extends Controller
             ->addColumn(
                 "actions",function ($profitDetails){
                 return '
-                       <a href="'.route("ClientsDashboard",["id" => $profitDetails->id]).'" type="button" class="btn btn-primary"><i class="icon s7-pen"></i></a>
-                       <a type="button" name="'.$profitDetails->id.'" data-url="'.route("RemoveProfit").'" class="btn btn-primary remove-profit"><i class="icon s7-trash"></i></a>
+                       <a type="button" name="'.$profitDetails->id.'" class="btn btn-primary update-profit-detail"><i class="icon s7-pen"></i></a>
+                       <a type="button" name="'.$profitDetails->id.'" class="btn btn-primary remove-profit-detail"><i class="icon s7-trash"></i></a>
                       ';
             })
             ->addColumn(
@@ -129,6 +131,34 @@ class ProfitsController extends Controller
             })
             ->rawColumns(['actions'])
             ->make(true);
+    }
+
+    public function removeProfitDetail(Request $request){
+        ProfitsDetails::find($request->get("id"))->delete();
+        return;
+    }
+    public function loadProfitDetailDataToModal(Request $request){
+        $profitDetail =   ProfitsDetails::find($request->get("id"));
+        $response = ["profitDetail" => $profitDetail];
+        return Response::json($response);
+    }
+
+    public function updateProfitDetail(Request $request){
+
+        $validator = Validator::make($request->all(),[
+            "item" => "required",
+            "item-price" => "required"
+        ]);
+
+        if ($validator->fails()){
+            $response = ["errors" => $validator->errors()];
+            return Response::json($response);
+        }
+
+        ProfitsDetails::find($request->get("pd-id"))->update([
+            "item_position" => $request->get("item"),
+            "item_price" => $request->get("item-price")
+        ]);
     }
 
 }
