@@ -92,13 +92,6 @@
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label class="col-sm-3 control-label">Amount</label>
-                                                                <div class="col-sm-6">
-                                                                    <input type="text" name="amount" id="amount" value="{{old("amount")}}" placeholder="Profit amount" class="form-control">
-                                                                    <div style="color: #ff0000; font-size: 13px; margin-top: 5px; font-weight: bold" id="amount-error" class="hide validation-errors"></div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
                                                                 <div class="col-sm-offset-2 col-sm-10">
                                                                     <button class="btn btn-default btn-space" data-dismiss="modal">Cancel</button>
                                                                     <button data-wizard="#wizard1" class="btn btn-primary btn-space wizard-next">Next Step <i class="icon s7-angle-right"></i></button>

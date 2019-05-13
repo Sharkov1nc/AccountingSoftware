@@ -25,7 +25,6 @@ class ProfitsController extends Controller
             "client" => "required",
             "date" => "required",
             "clarification" => "required | string",
-            "amount" => "required"
         ],[
             "clarification.string" => "Clarification need to be string !"
         ]);
@@ -134,7 +133,11 @@ class ProfitsController extends Controller
     }
 
     public function removeProfitDetail(Request $request){
-        ProfitsDetails::find($request->get("id"))->delete();
+        $pd = ProfitsDetails::find($request->get("id"));
+        $profit = Profits::find($pd->profit_id);
+        $profit->amount -= $pd->item_price;
+        $profit->save();
+        $pd->delete();
         return;
     }
     public function loadProfitDetailDataToModal(Request $request){
@@ -155,10 +158,13 @@ class ProfitsController extends Controller
             return Response::json($response);
         }
 
-        ProfitsDetails::find($request->get("pd-id"))->update([
+        $pd = ProfitsDetails::find($request->get("pd-id"));
+        $pd->update([
             "item_position" => $request->get("item"),
             "item_price" => $request->get("item-price")
         ]);
+        $pd->updateProfitAmount();
+
     }
 
 }
