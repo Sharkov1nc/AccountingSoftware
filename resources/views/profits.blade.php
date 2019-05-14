@@ -193,7 +193,7 @@
         App.wizard();
         App.dataTables();
 
-        // Load Data Table
+        // Load Data To DataTable
 
         $('#profits-table').dataTable({
             processing: true,
@@ -320,10 +320,9 @@
                 type: "GET",
                 url: "{{route("RemoveProfit")}}",
                 data: { id : profitID},
-                success: function (data) {
+                success: function () {
                     let table = $('#profits-table').DataTable();
                     table.ajax.reload();
-                    console.log(data);
                 },
                 error: function () {
                     console.log('Remove Profit Failed');
@@ -332,6 +331,7 @@
         });
 
         // Edit Profit Ajax
+
         $(document).on('click', '.update-profit' , function() {
             let profitID = this.dataset.name;
             $.ajax({
@@ -370,7 +370,7 @@
             $(".wizard-previous").click();
             form[0].reset();
             clearDynamicInputFields();
-        })
+        });
 
     </script>
 @endsection
