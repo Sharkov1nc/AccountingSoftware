@@ -12,6 +12,8 @@
 */
 use App\Http\Middleware\checkAuth;
 
+// Pages Routes
+
 Route::get('/', function (){
     return view("dashboard");
 })->name("Home")->middleware(checkAuth::class);
@@ -33,12 +35,10 @@ Route::get('/profile', function (){
 Route::get('/support', function (){
     return view("support");
 })->name("Support")->middleware(checkAuth::class);
-Route::get('/clients/dashboard/{id}', function ($id) {
-    return view("clients.dashboard",["Client" => App\Clients::findOrFail($id)]);
-})->name("ClientsDashboard")->middleware(checkAuth::class);
+
+// Profits Actions Routes
+
 Route::post("/add_profits","ProfitsController@addProfits")->name("AddProfits")->middleware(checkAuth::class);
-Route::get("/create_client","ClientController@createClient")->name("CreateClient")->middleware(checkAuth::class);
-Route::get("/load_clients_datatable","ClientController@loadDataToDataTable")->name("LoadDataTableClients")->middleware(checkAuth::class);
 Route::get("/load_profits_datatable","ProfitsController@loadDataToDataTable")->name("LoadDataTableProfits")->middleware(checkAuth::class);
 Route::get("/load_profit_data_to_modal","ProfitsController@loadProfitDataToModal")->name("LoadProfitDataToModal")->middleware(checkAuth::class);
 Route::get("/remove_profit","ProfitsController@removeProfit")->name("RemoveProfit")->middleware(checkAuth::class);
@@ -48,6 +48,15 @@ Route::get("/profit/update_profit_detail","ProfitsController@updateProfitDetail"
 Route::get("/generate_pdf","ProfitsController@printProfit")->name("PrintProfit")->middleware(checkAuth::class);
 Route::get("/profits/dashboard/{id}","ProfitsController@dashboard")->name("ProfitsDashboard")->middleware(checkAuth::class);
 Route::get("/profits/load_profit_details_data/{id}","ProfitsController@loadProfitDetailsData")->name("LoadProfitDetailsData")->middleware(checkAuth::class);
+
+// Clients Actions Routes
+
+Route::get("/create_client","ClientController@createClient")->name("CreateClient")->middleware(checkAuth::class);
+Route::get("/load_clients_datatable","ClientController@loadDataToDataTable")->name("LoadDataTableClients")->middleware(checkAuth::class);
+Route::get("/view_edit_client","ClientController@viewOrEditClient")->name("ViewOrEditClient")->middleware(checkAuth::class);
+Route::get("/remove_client","ClientController@removeClient")->name("RemoveClient")->middleware(checkAuth::class);
+
+// Auth Routes
 
 Auth::routes();
 

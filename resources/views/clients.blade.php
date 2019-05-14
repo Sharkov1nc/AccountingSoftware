@@ -67,19 +67,19 @@
                                                             <div class="form-group">
                                                                 <label class="col-sm-3 control-label">Client</label>
                                                                 <div class="col-sm-6">
-                                                                    <input type="text" placeholder="Company name" name="client" class="form-control">
+                                                                    <input type="text" id="company" placeholder="Company name" name="client" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="col-sm-3 control-label">City</label>
                                                                 <div class="col-sm-6">
-                                                                    <input type="text" placeholder="City" name="city" class="form-control">
+                                                                    <input type="text" id="city" placeholder="City" name="city" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="col-sm-3 control-label">Address</label>
                                                                 <div class="col-sm-6">
-                                                                    <input type="text" placeholder="Address" name="address" class="form-control">
+                                                                    <input type="text" id="address" placeholder="Address" name="address" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -100,19 +100,19 @@
                                                             <div class="form-group">
                                                                 <label class="col-sm-3 control-label">Contact person</label>
                                                                 <div class="col-sm-6">
-                                                                    <input type="text" name="contact-person" placeholder="Contact person" class="form-control">
+                                                                    <input type="text" id="contact-person" name="contact-person" placeholder="Contact person" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="col-sm-3 control-label">Phone number</label>
                                                                 <div class="col-sm-6">
-                                                                    <input type="text" name="phone" placeholder="Phone number" class="form-control">
+                                                                    <input type="text" id="phone" name="phone" placeholder="Phone number" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label class="col-sm-3 control-label">E-mail</label>
                                                                 <div class="col-sm-6">
-                                                                    <input type="text" name="email" placeholder="E-mail" class="form-control">
+                                                                    <input type="text" id="email" name="email" placeholder="E-mail" class="form-control">
                                                                 </div>
                                                             </div>
                                                             <div class="form-group">
@@ -137,7 +137,7 @@
                                                                 </div>
                                                                 <div class="col-sm-3 xs-pt-15">
                                                                     <div class="switch-button">
-                                                                        <input type="checkbox" checked="" name="type" id="swt1"><span>
+                                                                        <input type="checkbox" name="type" id="swt1"><span>
                                                                 <label for="swt1"></label></span>
                                                                     </div>
                                                                 </div>
@@ -216,6 +216,9 @@
 
         App.wizard();
         App.dataTables();
+
+        // Load Data To DataTable
+
         $('#client-table').DataTable({
             processing: true,
             serverSide: true,
@@ -238,10 +241,13 @@
         });
         $("#action-column").removeClass('text-right');
 
-        //Form Ajax
+       // Global Variables
 
         let form = $("#create-client");
         let modal = $("#md-custom");
+        let table = $('#client-table').DataTable();
+
+        // Create Client Ajax
 
         form.submit(function (e) {
 
@@ -255,15 +261,71 @@
                     modal.modal("hide");
                     form[0].reset();
                     $(".wizard-previous").click();
-                    let table = $('#client-table').DataTable();
                     table.ajax.reload();
-
                 },
                 error: function () {
                     console.log('Ajax failed to send the data.');
                 },
             });
         });
+
+        // View & Update Client Ajax
+
+        $(document).on('click', '.open-client-information, .edit-client' , function() {
+            let clientID = this.dataset.id;
+            let actionType = this.dataset.action;
+            $.ajax({
+                type: "GET",
+                url: "{{route("ViewOrEditClient")}}",
+                data: { id : clientID},
+                success: function (data) {
+                    modal.modal("show");
+                    $("#company").val(data.client.client);
+                    $("#address").val(data.client.address);
+                    $("#city").val(data.client.city);
+                    $("#contact-person").val(data.client.contact_person);
+                    $("#phone").val('0' + data.client.phone);
+                    $("#email").val(data.client.email);
+                    if (data.client.type === 1) {
+                        $("#swt1").prop("checked",true);
+                    }
+                    if (actionType === "view"){
+                        $(".form-group input").attr("disabled",true).css("color","black");
+                    }
+                    if (actionType === "edit"){
+                        $(".form-group input").removeAttr("disabled").css("color","#777777");
+                    }
+                },
+                error: function () {
+                    console.log('Update Profit Detail Failed');
+                },
+            });
+        });
+
+        // Remove Client Ajax
+
+        $(document).on('click', '.remove-client' , function() {
+            let clientID = this.dataset.id;
+            $.ajax({
+                type: "GET",
+                url: "{{route("RemoveClient")}}",
+                data: { id : clientID},
+                success: function () {
+                    table.ajax.reload();
+                },
+                error: function () {
+                    console.log('Remove Client Failed');
+                },
+            });
+        });
+
+
+        // Modal Close Redirect To First Step Of Wizard
+
+        modal.on('hidden.bs.modal', function () {
+            $(".wizard-previous").click();
+        });
+
 
     </script>
 @endsection
