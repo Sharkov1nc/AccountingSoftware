@@ -38,12 +38,14 @@ class ProfitsController extends Controller
             "client_id" => $request->get("client"),
             "date" => $request->get("date"),
             "clarification" => $request->get("clarification"),
+        ],[
             "amount" => null,
             "created_by" => Auth::user()->getAuthIdentifier()
         ]);
+        $this->removeAllProfitDetails($profit->id);
         $i = 1;
         while (1){
-            if ($request->exists('item-'.$i.'')) {
+            if ($request->exists('item-'.$i.'') && ( $request->get('item-'.$i.'') != "" && $request->get('item-price-'.$i.'') != "")) {
                $pD = ProfitsDetails::create([
                     "item_position" => $request->get('item-'.$i.''),
                     "item_price" => $request->get('item-price-'.$i.''),
@@ -57,6 +59,13 @@ class ProfitsController extends Controller
         }
         $profit->amount = $profitSum;
         $profit->save();
+    }
+
+    public function loadProfitDataToModal(Request $request){
+        $profit = Profits::find($request->get("id"));
+        $profitDetails = ProfitsDetails::where("profit_id",$profit->id)->get();
+        $response = ["profit" => $profit,"profitDetails" => $profitDetails,"pdCount" => count(iterator_to_array($profitDetails))];
+        return Response::json($response);
     }
 
     public function removeProfit(Request $request){
@@ -73,6 +82,10 @@ class ProfitsController extends Controller
         return;
     }
 
+    function removeAllProfitDetails($id){
+        ProfitsDetails::where("profit_id",$id)->delete();
+    }
+
     public function printProfit(Request $request){
         $this->middleware("auth");
         $profit = Profits::find($request->get("id"));
@@ -87,7 +100,7 @@ class ProfitsController extends Controller
             ->addColumn(
                 "actions",function ($profits){
                 return '<a href="'.route("ProfitsDashboard",["id" => $profits->id]).'" type="button" class="btn btn-primary"><i class="icon s7-menu"></i></a>
-                       <a href="'.route("ClientsDashboard",["id" => $profits->id]).'" type="button" class="btn btn-primary"><i class="icon s7-pen"></i></a>
+                       <a data-name="'.$profits->id.'" type="button" class="btn btn-primary update-profit"><i class="icon s7-pen"></i></a>
                        <a href="'.route("PrintProfit",["id" => $profits->id]).'" target="_blank" type="button" class="btn btn-primary"><i class="icon s7-print"></i></a>
                        <a type="button" name="'.$profits->id.'" data-url="'.route("RemoveProfit").'" class="btn btn-primary remove-profit"><i class="icon s7-trash"></i></a>
                       ';
@@ -141,7 +154,7 @@ class ProfitsController extends Controller
         return;
     }
     public function loadProfitDetailDataToModal(Request $request){
-        $profitDetail =   ProfitsDetails::find($request->get("id"));
+        $profitDetail = ProfitsDetails::find($request->get("id"));
         $response = ["profitDetail" => $profitDetail];
         return Response::json($response);
     }

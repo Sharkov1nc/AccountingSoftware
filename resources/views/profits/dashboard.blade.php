@@ -153,7 +153,7 @@
 
         let modal = $("#md-custom");
 
-        // Edit Profit Detail
+        // Edit Profit Detail Load Data To Modal
 
         $(document).on('click', '.update-profit-detail' , function() {
             let profitID = this.name;

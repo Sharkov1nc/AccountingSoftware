@@ -21,7 +21,7 @@
                         <div class="row table-title-create-button">
                             <div class="table-title col-md-6">Profits</div>
                             <div class="create-button col-md-6 text-right">
-                                <button data-toggle="modal" data-target="#md-custom" type="button" class="btn btn-space btn-primary"><span class="s7-plus" style="font-size: 16px;"> </span>Add Profit</button>
+                                <button data-toggle="modal" data-target="#md-custom" type="button" class="btn btn-space btn-primary add-profit-button"><span class="s7-plus" style="font-size: 16px;"> </span>Add Profit</button>
                             </div>
                         </div>
                     </div>
@@ -192,6 +192,9 @@
 
         App.wizard();
         App.dataTables();
+
+        // Load Data Table
+
         $('#profits-table').dataTable({
             processing: true,
             serverSide: true,
@@ -213,6 +216,9 @@
             "lengthMenu": [[25, 50, 100], [25, 50, 100]],
         });
         $("#action-column").removeClass('text-right');
+
+        // Datapicker Plugin
+
         $(".datetimepicker").datetimepicker({
             autoclose: true,
             componentIcon: '.s7-date',
@@ -223,7 +229,7 @@
         });
 
 
-        //Form Ajax
+        // Create Profit Ajax
 
         let form = $("#add-profits-form");
         let modal = $("#md-custom");
@@ -275,17 +281,27 @@
                 },
             });
         });
-        let currentItemPosition = $(".item-position-1");
+
+        // Dynamic Input Fields
+
         let elementsCount = 2;
-        let dynamicInputField = () => {
+        let dynamicInputField = (itemPosition = $(".item-position-1")) => {
             $(document).on('click', '.new-item' , function() {
+                console.log(itemPosition);
                 let newItemPosition = '<div class="form-group item-position-'+ elementsCount +'"><label class="col-sm-2 control-label">Item Position :</label> <div class="col-sm-6"> <input type="text" name="item-'+ elementsCount +'" placeholder="Item..." class="form-control"> </div> <div class="col-sm-3"> <input type="text" name="item-price-'+ elementsCount +'" placeholder="Item price..." class="form-control"> </div> <div class="col-md-1"> <button class="btn btn-primary new-item" type="button" ><span class="s7-plus"></span></button> </div> </div>';
-                currentItemPosition.after(newItemPosition);
+                itemPosition.after(newItemPosition);
                 elementsCount++;
                 let element = ".item-position-" + (elementsCount-1);
-                currentItemPosition =  $(element);
+                itemPosition =  $(element);
             });
         };
+       $(document).on('click','.add-profit-button', function (e) {
+           dynamicInputField();
+           e.stopPropagation();
+
+       });
+
+        // Clear Dynamic Input Fields
 
        let clearDynamicInputFields = () => {
             if (elementsCount > 1){
@@ -296,7 +312,7 @@
             }
        };
 
-       dynamicInputField();
+        // Remove Profit Ajax
 
         $(document).on('click', '.remove-profit' , function() {
            let profitID = this.name;
@@ -314,6 +330,47 @@
                 },
             });
         });
+
+        // Edit Profit Ajax
+        $(document).on('click', '.update-profit' , function() {
+            let profitID = this.dataset.name;
+            $.ajax({
+                type: "GET",
+                url: "{{route("LoadProfitDataToModal")}}",
+                data: { id : profitID},
+                success: function (data) {
+                    modal.modal("show");
+                    $("#clarification").val(data.profit.clarification);
+                    $("#datepicker-1").val(data.profit.date.substring(0,10));
+                    $("#client-select").val([data.profit.client_id]).trigger('change');
+                    let currentItemPosition = $(".item-position-1");
+                    for (elementsCount = 1;elementsCount <= data.pdCount;elementsCount++){
+                        if (elementsCount > 1){
+                            let newItemPosition = '<div class="form-group item-position-'+ elementsCount +'"><label class="col-sm-2 control-label">Item Position :</label> <div class="col-sm-6"> <input type="text" name="item-'+ elementsCount +'" placeholder="Item..." class="form-control"> </div> <div class="col-sm-3"> <input type="text" name="item-price-'+ elementsCount +'" placeholder="Item price..." class="form-control"> </div> <div class="col-md-1"> <button class="btn btn-primary new-item" type="button" ><span class="s7-plus"></span></button> </div> </div>';
+                            currentItemPosition.after(newItemPosition);
+                            let element = ".item-position-" + elementsCount;
+                            currentItemPosition =  $(element);
+                        }
+                        let itemField = $("input[name = "+'item-' + elementsCount +"]");
+                        itemField.val(data.profitDetails[elementsCount-1].item_position);
+                        let itemPriceField = $("input[name = "+'item-price-' + elementsCount +"]");
+                        itemPriceField.val(data.profitDetails[elementsCount-1].item_price);
+                    }
+                    dynamicInputField(currentItemPosition);
+                },
+                error: function () {
+                    console.log('Ajax failed to load data to modal');
+                },
+            });
+        });
+
+        // Modal Close Remove Inserted Data
+
+        modal.on('hidden.bs.modal', function () {
+            $(".wizard-previous").click();
+            form[0].reset();
+            clearDynamicInputFields();
+        })
 
     </script>
 @endsection
