@@ -11,9 +11,12 @@
 |
 */
 use App\Http\Middleware\checkAuth;
+use App\Http\Middleware\CheckExistsSetup;
 
 // Pages Routes
-
+Route::get("/setup_form",function (){
+    return view("register");
+})->middleware("guest")->middleware(CheckExistsSetup::class);
 Route::get('/', function (){
     return view("dashboard");
 })->name("Home")->middleware(checkAuth::class);
@@ -35,6 +38,9 @@ Route::get('/profile', function (){
 Route::get('/support', function (){
     return view("support");
 })->name("Support")->middleware(checkAuth::class);
+Route::get("/settings",function (){
+    return view("settings");
+})->name("Settings")->middleware(checkAuth::class);
 
 // Profits Actions Routes
 
@@ -57,6 +63,9 @@ Route::get("/view_edit_client","ClientController@viewOrEditClient")->name("ViewO
 Route::get("/remove_client","ClientController@removeClient")->name("RemoveClient")->middleware(checkAuth::class);
 
 // Auth Routes
+
+Route::get("/logout_auth","Auth\LoginController@logout")->name("logoutAuth")->middleware(checkAuth::class);
+Route::post("/setup","CompanyController@setup")->name("Setup");
 
 Auth::routes();
 
