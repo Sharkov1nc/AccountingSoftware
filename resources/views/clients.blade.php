@@ -323,6 +323,8 @@
         // Modal Close Redirect To First Step Of Wizard
 
         modal.on('hidden.bs.modal', function () {
+            form[0].reset();
+            $(".form-group input").removeAttr("disabled").css("color","#777777");
             $(".wizard-previous").click();
         });
 
