@@ -28,7 +28,7 @@
                     <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><img src="{{'amaretti/html/assets/img/avatar.jpg'}}"><span class="user-name">Samantha Amaretti</span><span class="angle-down s7-angle-down"></span></a>
                         <ul role="menu" class="dropdown-menu">
                             <li><a href="#"> <span class="icon s7-user"></span>My profile</a></li>
-                            <li><a href="#"> <span class="icon s7-power"></span>Sign Out</a></li>
+                            <li><a href="{{route("logoutAuth")}}"> <span class="icon s7-power"></span>Sign Out</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -43,64 +43,6 @@
                         </ul>
                     </li>
                     <li><a href="{{route("Support")}}">Support</a></li>
-                </ul>
-                <ul class="nav navbar-nav am-icons-nav">
-                    <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><span class="icon s7-comment"></span></a>
-                        <ul class="dropdown-menu am-messages">
-                            <li>
-                                <div class="title">Messages<span class="badge">3</span></div>
-                                <div class="list">
-                                    <div class="am-scroller nano">
-                                        <div class="content nano-content">
-                                            <ul>
-                                                <li class="active"><a href="#">
-                                                        <div class="logo"><img src="{{'amaretti/html/assets/img/avatar2.jpg'}}"></div>
-                                                        <div class="user-content"><span class="date">April 25</span><span class="name">Jessica Caruso</span><span class="text-content">Request you to be a part of the same so that we can work...</span></div></a></li>
-                                                <li><a href="#">
-                                                        <div class="logo"><img src="{{'amaretti/html/assets/img/avatar3.jpg'}}"></div>
-                                                        <div class="user-content"><span class="date">March 18</span><span class="name">Joel King</span><span class="text-content"> We wish to extend the building.</span></div></a></li>
-                                                <li><a href="#">
-                                                        <div class="logo"><img src="{{'amaretti/html/assets/img/avatar4.jpg'}}"></div>
-                                                        <div class="user-content"><span class="date">January 3</span><span class="name">Claire Sassu</span><span class="text-content"> We the ladies of a block are wiling to join together to set up a catering...</span></div></a></li>
-                                                <li><a href="#">
-                                                        <div class="logo"><img src="{{'amaretti/html/assets/img/avatar5.jpg'}}"></div>
-                                                        <div class="user-content"><span class="date">January 2</span><span class="name">Emily Carter</span><span class="text-content"> Request you to be a part of the same so that we can work...</span></div></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="footer"> <a href="#">View all messages</a></div>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><span class="icon s7-bell"></span><span class="indicator"></span></a>
-                        <ul class="dropdown-menu am-notifications">
-                            <li>
-                                <div class="title">Notifications<span class="badge">3</span></div>
-                                <div class="list">
-                                    <div class="am-scroller nano">
-                                        <div class="content nano-content">
-                                            <ul>
-                                                <li class="active"><a href="#">
-                                                        <div class="logo"><span class="icon s7-pin"></span></div>
-                                                        <div class="user-content"><span class="circle"></span><span class="name">Jessica Caruso</span><span class="text-content"> accepted your invitation to join the team.</span><span class="date">2 min ago</span></div></a></li>
-                                                <li><a href="#">
-                                                        <div class="logo"><span class="icon s7-add-user"></span></div>
-                                                        <div class="user-content"><span class="name">Joel King</span><span class="text-content"> is now following you</span><span class="date">2 days ago</span></div></a></li>
-                                                <li><a href="#">
-                                                        <div class="logo"><span class="icon s7-gleam"></span></div>
-                                                        <div class="user-content"><span class="name">Claire Sassu</span><span class="text-content"> is watching your main repository</span><span class="date">2 days ago</span></div></a></li>
-                                                <li><a href="#">
-                                                        <div class="logo"><span class="icon s7-add-user"></span></div>
-                                                        <div class="user-content"><span class="name">Emily Carter</span><span class="text-content"> is now following you</span><span class="date">5 days ago</span></div></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="footer"> <a href="#">View all notifications</a></div>
-                            </li>
-                        </ul>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -122,7 +64,7 @@
                 </li>
                 <li class=""><a href="{{route("Timeline")}}"><i class="icon s7-shuffle"></i><span>Timeline</span></a>
                 </li>
-                <li class=""><a href="#"><i class="icon s7-config"></i><span>Settings</span></a>
+                <li class=""><a href="{{route("Settings")}}"><i class="icon s7-config"></i><span>Settings</span></a>
                 </li>
                 <li class=""><a href="{{route("Support")}}"><i class="icon s7-call"></i><span>Support</span></a>
                 </li>

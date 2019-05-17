@@ -8,7 +8,7 @@
         <ol class="breadcrumb">
             <li><a href="{{route("Home")}}">Home</a></li>
             <li><a href="{{route("Profits")}}">Profits</a></li>
-            <li><a href="{{route("ClientsDashboard",["id" => $profit->client->id])}}">{{$profit->client->client}}</a></li>
+            <li><a href="">{{$profit->client->client}}</a></li>
             <li class="active">{{$profit->clarification}}</li>
         </ol>
     </div>
