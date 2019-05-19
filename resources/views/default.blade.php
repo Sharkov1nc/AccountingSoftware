@@ -27,14 +27,12 @@
                 <ul class="nav navbar-nav am-user-nav">
                     <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle"><img src="{{'amaretti/html/assets/img/avatar.jpg'}}"><span class="user-name">Samantha Amaretti</span><span class="angle-down s7-angle-down"></span></a>
                         <ul role="menu" class="dropdown-menu">
-                            <li><a href="#"> <span class="icon s7-user"></span>My profile</a></li>
                             <li><a href="{{route("logoutAuth")}}"> <span class="icon s7-power"></span>Sign Out</a></li>
                         </ul>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav am-top-menu">
                     <li><a href="{{route("Home")}}">Home</a></li>
-                    <li><a href="{{route("Profile")}}">Profile</a></li>
                     <li class="dropdown"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">Quick menu <span class="angle-down s7-angle-down"></span></a>
                         <ul role="menu" class="dropdown-menu">
                             <li><a href="{{route("Profits")}}">Profits</a></li>

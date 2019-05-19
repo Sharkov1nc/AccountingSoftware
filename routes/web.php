@@ -32,15 +32,10 @@ Route::get('/expenses',function (){
 Route::get('/clients',function (){
     return view("clients");
 })->name("Clients")->middleware(checkAuth::class);
-Route::get('/profile', function (){
-    return view("profile");
-})->name("Profile")->middleware(checkAuth::class);
 Route::get('/support', function (){
     return view("support");
 })->name("Support")->middleware(checkAuth::class);
-Route::get("/settings",function (){
-    return view("settings");
-})->name("Settings")->middleware(checkAuth::class);
+Route::get("/settings","SettingsController@permissionsList")->name("Settings")->middleware(checkAuth::class);
 
 // Profits Actions Routes
 
