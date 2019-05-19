@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger("position")->nullable(true);
             $table->boolean('administrator');
             $table->boolean('developer');
+            $table->string("image_url",512)->nullable(true);
             $table->rememberToken();
             $table->timestamps();
         });
