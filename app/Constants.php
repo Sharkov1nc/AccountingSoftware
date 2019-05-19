@@ -11,5 +11,31 @@ namespace App;
 
 class Constants
 {
-
+    const positions = [
+        "manager" => "Manager",
+        "administrator" => "Administrator",
+        "employer" => "Employer",
+        "profit_employer" => "Profit Employer",
+        "expense_employer" => "Expense Employer",
+        "office_secretary" => "Office Secretary"
+        ];
+    const permissions = [
+        "view_profits" => "View profits",
+        "add_profits" => "Add profits",
+        "edit_profits" => "Edit profits",
+        "print_profits" => "Print profits",
+        "remove_profits" => "Remove profits",
+        "view_expenses" => "View expenses",
+        "add_expenses" => "Add expenses",
+        "edit_expenses" => "Edit expenses",
+        "print_expenses" => "Print expenses",
+        "remove_expenses" => "Remove expenses",
+        "view_clients" => "View clients",
+        "add_clients" => "Add clients",
+        "edit_clients" => "Edit clients",
+        "remove_clients" => "Remove clients",
+        "view_timeline" => "View timeline",
+        "view_support" => "View support",
+        "send_support_request" => "Send support request"
+    ];
 }
