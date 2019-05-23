@@ -6,13 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profits extends Model
 {
-    protected $fillable = [
-        "client_id",
-        "date",
-        "clarification",
-        "amount",
-        "created_by"
-    ];
+    protected $fillable = ["client_id", "date", "clarification", "amount", "created_by"];
 
     protected $table = "profits";
 

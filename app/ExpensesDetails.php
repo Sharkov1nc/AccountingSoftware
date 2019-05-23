@@ -16,4 +16,15 @@ class ExpensesDetails extends Model
     {
         return $this->belongsTo('App\Expenses');
     }
+
+    public function updateExpenseAmount(){
+        $expense = Expenses::find($this->expense_id);
+        $eds = $this::where("expense_id",$this->expense_id)->get();
+        $sum = 0;
+        foreach ($eds as $pd) {
+            $sum += $pd->item_price;
+        }
+        $expense->amount = $sum;
+        $expense->save();
+    }
 }

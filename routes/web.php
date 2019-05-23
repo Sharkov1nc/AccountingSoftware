@@ -27,7 +27,7 @@ Route::get('/timeline',function (){
     return view("timeline");
 })->name("Timeline")->middleware(checkAuth::class);
 Route::get('/expenses',function (){
-    return view("expenses");
+    return view("expenses",["Clients" => \App\Clients::all("id","client")]);
 })->name("Expenses")->middleware(checkAuth::class);
 Route::get('/clients',function (){
     return view("clients");
@@ -43,12 +43,25 @@ Route::post("/add_profits","ProfitsController@addProfits")->name("AddProfits")->
 Route::get("/load_profits_datatable","ProfitsController@loadDataToDataTable")->name("LoadDataTableProfits")->middleware(checkAuth::class);
 Route::get("/load_profit_data_to_modal","ProfitsController@loadProfitDataToModal")->name("LoadProfitDataToModal")->middleware(checkAuth::class);
 Route::get("/remove_profit","ProfitsController@removeProfit")->name("RemoveProfit")->middleware(checkAuth::class);
-Route::get("/profit/remove_profit_detail","ProfitsController@removeProfitDetail")->name("RemoveProfitDetail")->middleware(checkAuth::class);
-Route::get("/profit/load_profit_detail_data_to_modal","ProfitsController@loadProfitDetailDataToModal")->name("LoadProfitDetailDataToModal")->middleware(checkAuth::class);
-Route::get("/profit/update_profit_detail","ProfitsController@updateProfitDetail")->name("UpdateProfitDetail")->middleware(checkAuth::class);
-Route::get("/generate_pdf","ProfitsController@printProfit")->name("PrintProfit")->middleware(checkAuth::class);
+Route::get("/profits/remove_profit_detail","ProfitsController@removeProfitDetail")->name("RemoveProfitDetail")->middleware(checkAuth::class);
+Route::get("/profits/load_profit_detail_data_to_modal","ProfitsController@loadProfitDetailDataToModal")->name("LoadProfitDetailDataToModal")->middleware(checkAuth::class);
+Route::get("/profits/update_profit_detail","ProfitsController@updateProfitDetail")->name("UpdateProfitDetail")->middleware(checkAuth::class);
+Route::get("/profits/generate_pdf","ProfitsController@printProfit")->name("PrintProfit")->middleware(checkAuth::class);
 Route::get("/profits/dashboard/{id}","ProfitsController@dashboard")->name("ProfitsDashboard")->middleware(checkAuth::class);
 Route::get("/profits/load_profit_details_data/{id}","ProfitsController@loadProfitDetailsData")->name("LoadProfitDetailsData")->middleware(checkAuth::class);
+
+// Expenses Actions Routes
+
+Route::post("/add_expenses","ExpensesController@addExpenses")->name("AddExpenses")->middleware(checkAuth::class);
+Route::get("/load_expenses_datatable","ExpensesController@loadDataToDataTable")->name("LoadDataTableExpenses")->middleware(checkAuth::class);
+Route::get("/load_expense_data_to_modal","ExpensesController@loadExpenseDataToModal")->name("LoadExpenseDataToModal")->middleware(checkAuth::class);
+Route::get("/remove_expense","ExpensesController@removeExpense")->name("RemoveExpense")->middleware(checkAuth::class);
+Route::get("/expenses/remove_expense_detail","ExpensesController@removeExpenseDetail")->name("RemoveExpenseDetail")->middleware(checkAuth::class);
+Route::get("/expenses/load_expense_detail_data_to_modal","ExpensesController@loadExpenseDetailDataToModal")->name("LoadExpenseDetailDataToModal")->middleware(checkAuth::class);
+Route::get("/expenses/update_expense_detail","ExpensesController@updateExpenseDetail")->name("UpdateExpenseDetail")->middleware(checkAuth::class);
+Route::get("/expenses/generate_pdf","ExpensesController@printExpense")->name("PrintExpense")->middleware(checkAuth::class);
+Route::get("/expenses/dashboard/{id}","ExpensesController@dashboard")->name("ExpensesDashboard")->middleware(checkAuth::class);
+Route::get("/expenses/load_expense_details_data/{id}","ExpensesController@loadExpenseDetailsData")->name("LoadExpenseDetailsData")->middleware(checkAuth::class);
 
 // Clients Actions Routes
 
