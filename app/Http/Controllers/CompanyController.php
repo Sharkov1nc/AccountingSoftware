@@ -38,7 +38,8 @@ class CompanyController extends Controller
            'email' => $request->get("email"),
            'password' => Hash::make($request->get('password')),
            'developer' => false,
-           'administrator' => true
+           'administrator' => true,
+           'position' => 1
        ]);
 
        CompanyInformation::create([

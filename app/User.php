@@ -27,7 +27,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function position(){
-        return $this->belongsTo('App\Positions');
+    public function positions(){
+        return $this->belongsTo('App\Positions',"position");
     }
 }

@@ -35,7 +35,6 @@ Route::get('/clients',function (){
 Route::get('/support', function (){
     return view("support");
 })->name("Support")->middleware(checkAuth::class);
-Route::get("/settings","SettingsController@permissionsList")->name("Settings")->middleware(checkAuth::class);
 
 // Profits Actions Routes
 
@@ -69,6 +68,22 @@ Route::get("/create_client","ClientController@createClient")->name("CreateClient
 Route::get("/load_clients_datatable","ClientController@loadDataToDataTable")->name("LoadDataTableClients")->middleware(checkAuth::class);
 Route::get("/view_edit_client","ClientController@viewOrEditClient")->name("ViewOrEditClient")->middleware(checkAuth::class);
 Route::get("/remove_client","ClientController@removeClient")->name("RemoveClient")->middleware(checkAuth::class);
+
+// Settings Actions Routes
+
+Route::post("/settings/create_user","SettingsController@createUser")->name("CreateUser")->middleware(checkAuth::class);
+Route::get("/settings/load_users_datatable","SettingsController@loadDataToDataTableUser")->name("LoadDataTableUser")->middleware(checkAuth::class);
+Route::get("/settings/view_edit_user","SettingsController@viewOrEditUser")->name("ViewOrEditUser")->middleware(checkAuth::class);
+Route::get("/settings/remove_user","SettingsController@removeUser")->name("RemoveUser")->middleware(checkAuth::class);
+ //Permissions
+Route::get("/settings","SettingsController@permissionsList")->name("Settings")->middleware(checkAuth::class);
+Route::get("/settings/set_unset_permissions","SettingsController@setUnsetPermissions")->name("SetUnsetPermissions")->middleware(checkAuth::class);
+ // Tasks
+Route::get("/settings/create_task","SettingsController@createTask")->name("CreateTask")->middleware(checkAuth::class);
+Route::get("/settings/load_tasks_datatable","SettingsController@loadDataToDataTableTask")->name("LoadDataTableTask")->middleware(checkAuth::class);
+Route::get("/settings/view_edit_task","SettingsController@viewTask")->name("ViewTask")->middleware(checkAuth::class);
+Route::get("/settings/remove_task","SettingsController@removeTask")->name("RemoveTask")->middleware(checkAuth::class);
+Route::get("/settings/mark_task_as_completed","SettingsController@markTaskAsCompleted")->name("MarkTaskAsCompleted")->middleware(checkAuth::class);
 
 // Auth Routes
 

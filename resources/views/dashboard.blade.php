@@ -8,9 +8,9 @@
             <div class="user-display">
                 <div class="photo"><img src="{{URL::asset('amaretti/html/assets/img/profile.jpg')}}"></div>
                 <div class="bottom">
-                    <div class="user-avatar"><span class="status"></span><img src="{{URL::asset('amaretti/html/assets/img/avatar.jpg')}}"></div>
+                    <div class="user-avatar"><span class="status"></span><img src="@if(\Illuminate\Support\Facades\Auth::user()->image_url) {{URL::asset("imgs/ninja.jpg")}} @else {{URL::asset("imgs/ninja.jpg")}} @endif"></div>
                     <div class="user-info">
-                        <h4> @guest Samantha Amaretti @else {{\Illuminate\Support\Facades\Auth::user()->name}} @endguest </h4><span>I am a web developer and designer based in Montreal - Canada, I like read books, good music and nature.</span>
+                        <h4> {{\Illuminate\Support\Facades\Auth::user()->name}} </h4><span>I am a web developer and designer based in Montreal - Canada, I like read books, good music and nature.</span>
                     </div>
                 </div>
             </div>

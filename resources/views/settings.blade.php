@@ -20,28 +20,27 @@
                     <ul class="nav nav-tabs">
                         <li class="active "><a href="#users" data-toggle="tab">Users Settings</a></li>
                         <li><a href="#permissions" data-toggle="tab">Permissions</a></li>
-                        <li><a href="#tasks" data-toggle="tab">Employer Tasks</a></li>
-                        <li><a href="#notes" data-toggle="tab">Employer Notes</a></li>
+                        <li><a href="#tasks" data-toggle="tab">Tasks</a></li>
+                        <li><a href="#notes" data-toggle="tab">Notes</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="users" class="tab-pane active cont">
                             <div class="widget widget-fullwidth widget-small">
                                 <div class="widget-head">
                                     <div class="row table-title-create-button">
-                                        <div class="table-title col-md-6">Clients</div>
+                                        <div class="table-title col-md-6">Users</div>
                                         <div class="create-button col-md-6 text-right">
-                                            <button data-toggle="modal" data-target="#md-custom" type="button" class="btn btn-space btn-primary"><span class="s7-plus" style="font-size: 16px;"> </span>Add Client</button>
+                                            <button data-toggle="modal" data-target="#md-custom" type="button" class="btn btn-space btn-primary"><span class="s7-plus" style="font-size: 16px;"> </span>Add User</button>
                                         </div>
                                     </div>
                                 </div>
-                                <table id="client-table" class="table table-striped table-hover table-fw-widget">
+                                <table id="user-table" class="table table-striped table-hover table-fw-widget">
                                     <thead>
                                     <tr>
-                                        <th>Client</th>
-                                        <th>Contact Person</th>
-                                        <th>Type</th>
-                                        <th>Phone Number</th>
-                                        <th id="action-column">Actions</th>
+                                        <th>User</th>
+                                        <th>E-mail</th>
+                                        <th>Position</th>
+                                        <th class="action-column">Actions</th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -51,7 +50,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" data-dismiss="modal" aria-hidden="true" class="close"><i class="icon s7-close"></i></button>
-                                            <h3 class="modal-title">Add Profit</h3>
+                                            <h3 class="modal-title">Add User</h3>
                                         </div>
                                         <div class="modal-body">
                                             <div class="row wizard-row">
@@ -61,36 +60,36 @@
                                                             <ul class="steps">
                                                                 <li data-step="1" id="step1" class="active">Step 1<span class="chevron"></span></li>
                                                                 <li data-step="2" id="step2" >Step 2<span class="chevron"></span></li>
-                                                                <li data-step="3" id="step3" >Step 3<span class="chevron"></span></li>
                                                             </ul>
-                                                            <form action="{{route("CreateClient")}}" id="create-client" method="get" >
+                                                            <form action="{{route("CreateUser")}}" id="create-user" method="post" enctype="multipart/form-data">
+                                                                @csrf
                                                                 <div class="step-content">
                                                                     <div data-step="1" class="step-pane active">
                                                                         <div class="form-horizontal group-border-dashed">
                                                                             <div class="form-group no-padding">
                                                                                 <div class="col-sm-7">
-                                                                                    <h3 class="wizard-title">Client Information</h3>
+                                                                                    <h3 class="wizard-title">User Information</h3>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="form-group">
-                                                                                <label class="col-sm-3 control-label">Client</label>
+                                                                            <div class="form-group form-group-user">
+                                                                                <label class="col-sm-3 control-label">Name</label>
                                                                                 <div class="col-sm-6">
-                                                                                    <input type="text" id="company" placeholder="Company name" name="client" class="form-control">
+                                                                                    <input type="text" id="name" placeholder="Name" name="name" class="form-control">
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="form-group">
-                                                                                <label class="col-sm-3 control-label">City</label>
+                                                                            <div class="form-group form-group-user">
+                                                                                <label class="col-sm-3 control-label">E-mail</label>
                                                                                 <div class="col-sm-6">
-                                                                                    <input type="text" id="city" placeholder="City" name="city" class="form-control">
+                                                                                    <input type="email" id="email" placeholder="E-mail" name="email" class="form-control">
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="form-group">
-                                                                                <label class="col-sm-3 control-label">Address</label>
+                                                                            <div class="form-group form-group-user" id="password-label">
+                                                                                <label class="col-sm-3 control-label">Password</label>
                                                                                 <div class="col-sm-6">
-                                                                                    <input type="text" id="address" placeholder="Address" name="address" class="form-control">
+                                                                                    <input type="text" id="password" name="password" value="@php echo "sh".rand(2019,99123)."ind"; @endphp" class="form-control">
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="form-group">
+                                                                            <div class="form-group form-group-user">
                                                                                 <div class="col-sm-offset-2 col-sm-10">
                                                                                     <button class="btn btn-default btn-space" data-dismiss="modal">Cancel</button>
                                                                                     <button data-wizard="#wizard1" class="btn btn-primary btn-space wizard-next">Next Step <i class="icon s7-angle-right"></i></button>
@@ -102,58 +101,29 @@
                                                                         <div class="form-horizontal group-border-dashed">
                                                                             <div class="form-group no-padding">
                                                                                 <div class="col-sm-7">
-                                                                                    <h3 class="wizard-title">Contact Information</h3>
+                                                                                    <h3 class="wizard-title"> Detail User Information</h3>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="form-group">
-                                                                                <label class="col-sm-3 control-label">Contact person</label>
+                                                                            <div class="form-group form-group-user">
+                                                                                <label class="col-sm-3 control-label">Position</label>
                                                                                 <div class="col-sm-6">
-                                                                                    <input type="text" id="contact-person" name="contact-person" placeholder="Contact person" class="form-control">
+                                                                                    <select class="select2" name="position" id="position-select">
+                                                                                        @foreach($positions as $position )
+                                                                                            <option value="{{$position->position_code}}">{{$position->position}}</option>
+                                                                                        @endforeach
+                                                                                    </select>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="form-group">
-                                                                                <label class="col-sm-3 control-label">Phone number</label>
+                                                                            <div class="form-group form-group-user">
+                                                                                <label class="col-sm-3 control-label">Image Link</label>
                                                                                 <div class="col-sm-6">
-                                                                                    <input type="text" id="phone" name="phone" placeholder="Phone number" class="form-control">
+                                                                                    <input type="file" name="image" id="image" class="form-control">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group">
-                                                                                <label class="col-sm-3 control-label">E-mail</label>
-                                                                                <div class="col-sm-6">
-                                                                                    <input type="text" id="email" name="email" placeholder="E-mail" class="form-control">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <div class="col-sm-12">
+                                                                                <div class="col-sm-10 col-sm-offset-2">
                                                                                     <button data-wizard="#wizard1" class="btn btn-default btn-space wizard-previous"><i class="icon s7-angle-left"></i> Previous</button>
-                                                                                    <button data-wizard="#wizard1" class="btn btn-primary btn-space wizard-next">Next Step <i class="icon s7-angle-right"></i></button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div data-step="3" class="step-pane">
-                                                                        <div class="form-horizontal group-border-dashed">
-                                                                            <div class="form-group no-padding">
-                                                                                <div class="col-sm-7">
-                                                                                    <h3 class="wizard-title">Client Type</h3>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <div class="col-sm-7">
-                                                                                    <label class="control-label">Legal Entity</label>
-                                                                                    <p>This option define client type.</p>
-                                                                                </div>
-                                                                                <div class="col-sm-3 xs-pt-15">
-                                                                                    <div class="switch-button">
-                                                                                        <input type="checkbox" name="type" id="swt1"><span>
-                                                                <label for="swt1"></label></span>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="form-group">
-                                                                                <div class="col-sm-12">
-                                                                                    <button data-wizard="#wizard1" class="btn btn-default btn-space wizard-previous"><i class="icon s7-angle-left"></i> Previous</button>
-                                                                                    <button type="submit" class="btn btn-primary btn-space"><i class="icon s7-check"></i> Complete</button>
+                                                                                    <button type="submit" class="btn btn-primary btn-space complate-btn"><i class="icon s7-check"></i> Complete</button>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -177,21 +147,22 @@
                                     $k=0;
                                @endphp
                                 @foreach($positions as $pt)
+                                    @php $positionsArr = \App\PermissionsPositionsM2M::permissionExists($pt->id) @endphp
                                     <div class="col-md-6">
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
-                                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion1" href="#collapse-{{$i}}" class="collapsed"><i class="icon s7-angle-down-circle"></i> {{$pt}}</a></h4>
+                                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion1" href="#collapse-{{$i}}" class="collapsed"><i class="icon s7-angle-down-circle"></i> {{$pt->position}}</a></h4>
                                             </div>
                                             <div id="collapse-{{$i}}" class="panel-collapse collapse">
                                                 <div class="panel-body">
                                                     <table class="table">
                                                         <tbody>
-                                                        @foreach($permissions as $key => $permission)
+                                                        @foreach($permissions as  $permission)
                                                             <tr>
-                                                                <td>{{$permission}}</td>
+                                                                <td>{{$permission->permission}}</td>
                                                                 <td>
                                                                     <div class="switch-button">
-                                                                        <input type="checkbox" name="{{$key}}" id="swt-{{$k}}"><span><label for="swt-{{$k}}"></label></span>
+                                                                        <input type="checkbox" name="{{$permission->id}}" data-name="{{$pt->id}}" @if(in_array($permission->permission_code,$positionsArr)) checked @endif id="swt-{{$k}}"><span><label for="swt-{{$k}}"></label></span>
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -209,11 +180,90 @@
                             </div>
                         </div>
                         <div id="tasks" class="tab-pane">
-                            <!--
-                             Tasks Content
-                             All tasks
-                             Create task to user action
-                             -->
+                            <div class="widget widget-fullwidth widget-small">
+                                <div class="widget-head">
+                                    <div class="row table-title-create-button">
+                                        <div class="table-title col-md-6">Tasks</div>
+                                        <div class="create-button col-md-6 text-right">
+                                            <button data-toggle="modal" data-target="#md-custom-task" type="button" class="btn btn-space btn-primary"><span class="s7-plus" style="font-size: 16px;"> </span>Add Task</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table id="tasks-table" class="table table-striped table-hover table-fw-widget" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Recipient</th>
+                                        <th>Status</th>
+                                        <th class="action-column">Actions</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div id="md-custom-task" role="dialog" class="modal fade modal-colored-header">
+                                <div class="modal-dialog modal-custom-width">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" data-dismiss="modal" aria-hidden="true" class="close"><i class="icon s7-close"></i></button>
+                                            <h3 class="modal-title">Add Task</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row wizard-row">
+                                                <div class="col-md-12 fuelux">
+                                                    <div class="block-wizard panel panel-default">
+                                                        <div id="wizard1" class="wizard wizard-ux">
+                                                            <ul class="steps">
+                                                                <li data-step="1" id="step1" class="active">Step 1<span class="chevron"></span></li>
+                                                            </ul>
+                                                            <form action="{{route("CreateTask")}}" id="create-task" method="get">
+                                                                <div class="step-content">
+                                                                    <div data-step="1" class="step-pane active">
+                                                                        <div class="form-horizontal group-border-dashed">
+                                                                            <div class="form-group no-padding">
+                                                                                <div class="col-sm-7">
+                                                                                    <h3 class="wizard-title">Task Information</h3>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group form-group-task">
+                                                                                <label class="col-sm-3 control-label">Task Title</label>
+                                                                                <div class="col-sm-6">
+                                                                                    <input type="text" id="task-name" placeholder="Task Title" name="task-name" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group form-group-task">
+                                                                                <label class="col-sm-3 control-label">Recipient</label>
+                                                                                <div class="col-sm-6">
+                                                                                    <select class="select2" name="task-recipient" id="recipient-select">
+                                                                                        @foreach($users as $user )
+                                                                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group form-group-task">
+                                                                                <label class="col-sm-3 control-label">Task Content</label>
+                                                                                <div class="col-sm-6">
+                                                                                    <textarea name="task" id="task" class="form-control"></textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <div class="col-sm-10 col-sm-offset-2">
+                                                                                    <button class="btn btn-default btn-space" data-dismiss="modal">Cancel</button>
+                                                                                    <button type="submit" class="btn btn-primary btn-space complate-btn"><i class="icon s7-check"></i> Complete</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div id="notes" class="tab-pane">
                             <!--
@@ -283,21 +333,20 @@
         App.wizard();
         App.dataTables();
 
-        // Load Data To DataTable
+        // Load User Data To DataTable --> User Tab
 
-        $('#client-table').DataTable({
+        $('#user-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax : '{{route("LoadDataTableClients") }}',
+            ajax : '{{route("LoadDataTableUser") }}',
             columns: [
-                { data: "client" , name : "client" , width : "20%"},
-                { data: "contact_person" , name : "contact_person" , width : "20%"},
-                { data: "type" , name : "type" , width : "20%"},
-                { data: "phone" , name : "phone" , width : "20%"},
+                { data: "name" , name : "name" , width : "30%"},
+                { data: "email" , name : "email" , width : "30%"},
+                { data: "position" , name : "position" , width : "20%"},
                 { data: "actions" , name : 'actions', width : "20%"}
             ],
             columnDefs: [
-                { className: "text-right", "targets": [4] }
+                { className: "text-right", "targets": [3] }
             ],
             dom:
             "<'row am-datatable-header'<'col-sm-6'l><'col-sm-6' f>>" +
@@ -305,29 +354,56 @@
             "<'row am-datatable-footer'<'col-sm-5'i><'col-sm-7'p>>",
             "lengthMenu": [[25, 50, 100], [25, 50, 100]],
         });
-        $("#action-column").removeClass('text-right');
+
+        // Load Tasks Data To DataTable --> Tasks Tab
+
+        $('#tasks-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax : '{{route("LoadDataTableTask") }}',
+            columns: [
+                { data: "name" , name : "name" , width : "30%"},
+                { data: "recipient" , name : "recipient" , width : "30%"},
+                { data: "completed" , name : "completed" , width : "20%"},
+                { data: "actions" , name : 'actions', width : "20%"}
+            ],
+            columnDefs: [
+                { className: "text-right", "targets": [3] }
+            ],
+            dom:
+            "<'row am-datatable-header'<'col-sm-6'l><'col-sm-6' f>>" +
+            "<'row am-datatable-body'<'col-sm-12'tr>>" +
+            "<'row am-datatable-footer'<'col-sm-5'i><'col-sm-7'p>>",
+            "lengthMenu": [[25, 50, 100], [25, 50, 100]],
+        });
+
+        // Action Column Position
+        $(".action-column").removeClass('text-right');
 
         // Global Variables
+        let userForm = $("#create-user");
+        let taskForm = $("#create-task");
+        let userModal = $("#md-custom");
+        let taskModal = $("#md-custom-task");
+        let userTable = $('#user-table').DataTable();
+        let taskTable = $('#tasks-table').DataTable();
 
-        let form = $("#create-client");
-        let modal = $("#md-custom");
-        let table = $('#client-table').DataTable();
+        // Create User Ajax --> User Tab
 
-        // Create Client Ajax
-
-        form.submit(function (e) {
+        userForm.submit(function (e) {
 
             e.preventDefault();
 
             $.ajax({
-                type: form.attr('method'),
-                url: form.attr('action'),
-                data: form.serialize(),
+                type: userForm.attr('method'),
+                url: userForm.attr('action'),
+                enctype : userForm.attr('enctype'),
+                data: userForm.serialize(),
                 success: function () {
-                    modal.modal("hide");
-                    form[0].reset();
+                    userModal.modal("hide");
+                    userForm[0].reset();
                     $(".wizard-previous").click();
-                    table.ajax.reload();
+                    userTable.ajax.reload();
                 },
                 error: function () {
                     console.log('Ajax failed to send the data.');
@@ -335,63 +411,165 @@
             });
         });
 
-        // View & Update Client Ajax
+        // View & Update User Ajax --> User Tab
 
-        $(document).on('click', '.open-client-information, .edit-client' , function() {
-            let clientID = this.dataset.id;
+        $(document).on('click', '.open-user-information, .edit-user' , function() {
+            let userID = this.dataset.id;
             let actionType = this.dataset.action;
             $.ajax({
                 type: "GET",
-                url: "{{route("ViewOrEditClient")}}",
-                data: { id : clientID},
+                url: "{{route("ViewOrEditUser")}}",
+                data: { id : userID},
                 success: function (data) {
-                    modal.modal("show");
-                    $("#company").val(data.client.client);
-                    $("#address").val(data.client.address);
-                    $("#city").val(data.client.city);
-                    $("#contact-person").val(data.client.contact_person);
-                    $("#phone").val('0' + data.client.phone);
-                    $("#email").val(data.client.email);
-                    if (data.client.type === 1) {
-                        $("#swt1").prop("checked",true);
-                    }
+                    userModal.modal("show");
+                    $("#name").val(data.user.name);
+                    $("#email").val(data.user.email);
+                    $("#password-label").hide();
+                    $("#position-select").val([data.positionName]).trigger("change");
+                    $("#image").val(data.user.image_url);
                     if (actionType === "view"){
-                        $(".form-group input").attr("disabled",true).css("color","black");
-                    }
-                    if (actionType === "edit"){
-                        $(".form-group input").removeAttr("disabled").css("color","#777777");
+                        $(".form-group-user input").attr("disabled",true).css("color","black");
+                        $(".complate-btn").hide();
                     }
                 },
                 error: function () {
-                    console.log('Update Profit Detail Failed');
+                    console.log('Update User Failed');
                 },
             });
         });
 
-        // Remove Client Ajax
+        // Remove User Ajax --> User Tab
 
-        $(document).on('click', '.remove-client' , function() {
-            let clientID = this.dataset.id;
+        $(document).on('click', '.remove-user' , function() {
+            let userID = this.dataset.id;
             $.ajax({
                 type: "GET",
-                url: "{{route("RemoveClient")}}",
-                data: { id : clientID},
+                url: "{{route("RemoveUser")}}",
+                data: { id : userID},
                 success: function () {
-                    table.ajax.reload();
+                    userTable.ajax.reload();
                 },
                 error: function () {
-                    console.log('Remove Client Failed');
+                    console.log('Remove User Failed');
                 },
             });
         });
 
 
-        // Modal Close Redirect To First Step Of Wizard
+        // User Modal Close Redirect To First Step Of Wizard --> User Tab
 
-        modal.on('hidden.bs.modal', function () {
-            form[0].reset();
-            $(".form-group input").removeAttr("disabled").css("color","#777777");
+        userModal.on('hidden.bs.modal', function () {
+            userForm[0].reset();
+            $("#password-label").show();
+            $(".complate-btn").show();
+            $(".form-group-user input").removeAttr("disabled").css("color","#777777");
             $(".wizard-previous").click();
+        });
+
+
+        // Set / Unset Permission Ajax --> Permissions Tab
+
+        $(document).on("change",'.switch-button>input',function () {
+            let position = this.dataset.name;
+            let permission = this.name;
+            $.ajax({
+                type: "GET",
+                url: "{{route("SetUnsetPermissions")}}",
+                data: { position : position, permission : permission},
+                success: function () {},
+                error: function () {
+                    console.log('Failed To Set/Unset Permission');
+                },
+            });
+        });
+
+        // Create Task --> Task Tab
+
+        taskForm.submit(function (e) {
+
+            e.preventDefault();
+
+            $.ajax({
+                type: taskForm.attr('method'),
+                url: taskForm.attr('action'),
+                data: taskForm.serialize(),
+                success: function () {
+                    taskModal.modal("hide");
+                    taskForm[0].reset();
+                    taskTable.ajax.reload();
+                },
+                error: function () {
+                    console.log('Ajax failed to send the data.');
+                },
+            });
+        });
+
+        // View Task Ajax --> Task Tab
+
+        $(document).on('click', '.open-task-information' , function() {
+            let taskID = this.dataset.id;
+            $.ajax({
+                type: "GET",
+                url: "{{route("ViewTask")}}",
+                data: { id : taskID},
+                success: function (data) {
+                    taskModal.modal("show");
+                    $("#task-name").val(data.task.name);
+                    $("#task").val(data.task.task);
+                    $("#recipient-select").val([data.task.recipient]).trigger("change");
+                    $(".form-group-task input").attr("disabled",true).css("color","black");
+                    $(".form-group-task textarea").attr("disabled",true).css("color","black");
+                    $(".form-group-task select").attr("disabled",true).css("color","black");
+                    $(".complate-btn").hide();
+                },
+                error: function () {
+                    console.log('View Task Failed');
+                },
+            });
+        });
+
+        // Remove Task Ajax --> Task Tab
+
+        $(document).on('click', '.remove-task' , function() {
+            let taskID = this.dataset.id;
+            $.ajax({
+                type: "GET",
+                url: "{{route("RemoveTask")}}",
+                data: { id : taskID},
+                success: function () {
+                    taskTable.ajax.reload();
+                },
+                error: function () {
+                    console.log('Remove Task Failed');
+                },
+            });
+        });
+
+        // Mark Task As Completed Ajax --> Task Tab
+
+        $(document).on('click', '.mark-task-as-completed' , function() {
+            let taskID = this.dataset.id;
+            $.ajax({
+                type: "GET",
+                url: "{{route("MarkTaskAsCompleted")}}",
+                data: { id : taskID},
+                success: function () {
+                    taskTable.ajax.reload();
+                },
+                error: function () {
+                    console.log('Mark Task As Completed Failed');
+                },
+            });
+        });
+
+        // Task Modal Close Clear Information Content --> Task Tab
+
+        taskModal.on('hidden.bs.modal', function () {
+            taskForm[0].reset();
+            $(".complate-btn").show();
+            $(".form-group-task input").removeAttr("disabled").css("color","#777777");
+            $(".form-group-task textarea").removeAttr("disabled").css("color","#777777");
+            $(".form-group-task select").removeAttr("disabled").css("color","#777777");
         });
 
 
