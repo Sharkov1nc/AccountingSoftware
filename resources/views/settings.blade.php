@@ -243,7 +243,7 @@
                                                                             <div class="form-group form-group-task">
                                                                                 <label class="col-sm-3 control-label">Task Content</label>
                                                                                 <div class="col-sm-6">
-                                                                                    <textarea name="task" id="task" class="form-control"></textarea>
+                                                                                    <textarea name="task" id="task" rows="6" class="form-control"></textarea>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group">
@@ -266,11 +266,89 @@
                             </div>
                         </div>
                         <div id="notes" class="tab-pane">
-                            <!--
-                             Notes Content
-                             All notes
-                             Create note to user action
-                             -->
+                            <div class="widget widget-fullwidth widget-small">
+                                <div class="widget-head">
+                                    <div class="row table-title-create-button">
+                                        <div class="table-title col-md-6">Notes</div>
+                                        <div class="create-button col-md-6 text-right">
+                                            <button data-toggle="modal" data-target="#md-custom-notes" type="button" class="btn btn-space btn-primary"><span class="s7-plus" style="font-size: 16px;"> </span>Add Note</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table id="notes-table" class="table table-striped table-hover table-fw-widget" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Recipient</th>
+                                        <th class="action-column">Actions</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div id="md-custom-notes" role="dialog" class="modal fade modal-colored-header">
+                                <div class="modal-dialog modal-custom-width">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" data-dismiss="modal" aria-hidden="true" class="close"><i class="icon s7-close"></i></button>
+                                            <h3 class="modal-title">Add Note</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row wizard-row">
+                                                <div class="col-md-12 fuelux">
+                                                    <div class="block-wizard panel panel-default">
+                                                        <div id="wizard1" class="wizard wizard-ux">
+                                                            <ul class="steps">
+                                                                <li data-step="1" id="step1" class="active">Step 1<span class="chevron"></span></li>
+                                                            </ul>
+                                                            <form action="{{route("CreateNote")}}" id="create-note" method="get">
+                                                                <div class="step-content">
+                                                                    <div data-step="1" class="step-pane active">
+                                                                        <div class="form-horizontal group-border-dashed">
+                                                                            <div class="form-group no-padding">
+                                                                                <div class="col-sm-7">
+                                                                                    <h3 class="wizard-title">Note Information</h3>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group form-group-note">
+                                                                                <label class="col-sm-3 control-label">Note Title</label>
+                                                                                <div class="col-sm-6">
+                                                                                    <input type="text" id="note-name" placeholder="Note Title" name="note-name" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group form-group-note">
+                                                                                <label class="col-sm-3 control-label">Recipient</label>
+                                                                                <div class="col-sm-6">
+                                                                                    <select class="select2" name="note-recipient" id="note-recipient">
+                                                                                        @foreach($users as $user )
+                                                                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group form-group-note">
+                                                                                <label class="col-sm-3 control-label">Note Content</label>
+                                                                                <div class="col-sm-6">
+                                                                                    <textarea name="note" id="note" rows="10" class="form-control"></textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <div class="col-sm-10 col-sm-offset-2">
+                                                                                    <button class="btn btn-default btn-space" data-dismiss="modal">Cancel</button>
+                                                                                    <button type="submit" class="btn btn-primary btn-space complate-btn"><i class="icon s7-check"></i> Complete</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -376,6 +454,26 @@
             "<'row am-datatable-footer'<'col-sm-5'i><'col-sm-7'p>>",
             "lengthMenu": [[25, 50, 100], [25, 50, 100]],
         });
+        // Load Notes Data To DataTable --> Notes Tab
+
+        $('#notes-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax : '{{route("LoadDataTableNote") }}',
+            columns: [
+                { data: "title" , name : "title" , width : "40%"},
+                { data: "recipient" , name : "recipient" , width : "30%"},
+                { data: "actions" , name : 'actions', width : "30%"}
+            ],
+            columnDefs: [
+                { className: "text-right", "targets": [2] }
+            ],
+            dom:
+            "<'row am-datatable-header'<'col-sm-6'l><'col-sm-6' f>>" +
+            "<'row am-datatable-body'<'col-sm-12'tr>>" +
+            "<'row am-datatable-footer'<'col-sm-5'i><'col-sm-7'p>>",
+            "lengthMenu": [[25, 50, 100], [25, 50, 100]],
+        });
 
         // Action Column Position
         $(".action-column").removeClass('text-right');
@@ -383,10 +481,13 @@
         // Global Variables
         let userForm = $("#create-user");
         let taskForm = $("#create-task");
+        let noteForm = $("#create-note");
         let userModal = $("#md-custom");
         let taskModal = $("#md-custom-task");
+        let noteModal = $("#md-custom-notes");
         let userTable = $('#user-table').DataTable();
         let taskTable = $('#tasks-table').DataTable();
+        let noteTable = $("#notes-table").DataTable();
 
         // Create User Ajax --> User Tab
 
@@ -570,6 +671,78 @@
             $(".form-group-task input").removeAttr("disabled").css("color","#777777");
             $(".form-group-task textarea").removeAttr("disabled").css("color","#777777");
             $(".form-group-task select").removeAttr("disabled").css("color","#777777");
+        });
+
+        // Create Note --> Notes Tab
+
+        noteForm.submit(function (e) {
+
+            e.preventDefault();
+
+            $.ajax({
+                type: noteForm.attr('method'),
+                url: noteForm.attr('action'),
+                data: noteForm.serialize(),
+                success: function () {
+                    noteModal.modal("hide");
+                    noteForm[0].reset();
+                    noteTable.ajax.reload();
+                },
+                error: function () {
+                    console.log('Ajax failed to send the data.');
+                },
+            });
+        });
+
+        // View Note Ajax --> Notes Tab
+
+        $(document).on('click', '.open-note-information' , function() {
+            let noteID = this.dataset.id;
+            $.ajax({
+                type: "GET",
+                url: "{{route("ViewNote")}}",
+                data: { id : noteID},
+                success: function (data) {
+                    noteModal.modal("show");
+                    $("#note-name").val(data.note.title);
+                    $("#note").val(data.note.note);
+                    $("#note-recipient").val([data.note.recipient]).trigger("change");
+                    $(".form-group-note input").attr("disabled",true).css("color","black");
+                    $(".form-group-note textarea").attr("disabled",true).css("color","black");
+                    $(".form-group-note select").attr("disabled",true).css("color","black");
+                    $(".complate-btn").hide();
+                },
+                error: function () {
+                    console.log('View Note Failed');
+                },
+            });
+        });
+
+        // Remove Note Ajax --> Notes Tab
+
+        $(document).on('click', '.remove-note' , function() {
+            let noteID = this.dataset.id;
+            $.ajax({
+                type: "GET",
+                url: "{{route("RemoveNote")}}",
+                data: { id : noteID},
+                success: function () {
+                    noteTable.ajax.reload();
+                },
+                error: function () {
+                    console.log('Remove Note Failed');
+                },
+            });
+        });
+
+        // Note Modal Close Clear Information Content --> Notes Tab
+
+        noteModal.on('hidden.bs.modal', function () {
+            noteForm[0].reset();
+            $(".complate-btn").show();
+            $(".form-group-note input").removeAttr("disabled").css("color","#777777");
+            $(".form-group-note textarea").removeAttr("disabled").css("color","#777777");
+            $(".form-group-note select").removeAttr("disabled").css("color","#777777");
         });
 
 

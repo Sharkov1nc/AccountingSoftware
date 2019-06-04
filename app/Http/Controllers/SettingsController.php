@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notes;
 use App\Permissions;
 use App\PermissionsPositionsM2M;
 use App\Positions;
@@ -137,4 +138,46 @@ class SettingsController extends Controller
         Tasks::find($request->get("id"))->delete();
     }
 
+    // Notes
+
+    public function createNote(Request $request){
+
+        // Validator ---> TODO
+
+        Notes::create([
+            "title" => $request->get("note-name"),
+            "recipient" => $request->get("note-recipient"),
+            'note' => $request->get('note')
+        ]);
+    }
+
+    public function loadDataToDataTableNote(){
+        $note = Notes::all();
+        return DataTables::of($note)
+            ->addColumn(
+                "actions",function ($note){
+                return '<a type="button" data-id="'.$note->id.'" class="btn btn-primary open-note-information"><i class="icon s7-menu"></i></a>
+                        <a type="button" data-id="'.$note->id.'" class="btn btn-primary remove-note"><i class="icon s7-trash"></i></a>
+                      ';
+            })
+            ->addColumn(
+                "recipient",function ($note){
+                return $note->recipients->name;
+            })
+            ->rawColumns(['actions'])
+            ->make(true);
+    }
+
+    public function viewNote(Request $request){
+        $note = Notes::find($request->get("id"));
+        $response = ["note" => $note];
+        return Response::json($response);
+    }
+
+    public function removeNote(Request $request){
+        Notes::find($request->get("id"))->delete();
+    }
+
 }
+
+

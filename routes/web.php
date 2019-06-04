@@ -18,7 +18,7 @@ Route::get("/setup_form",function (){
     return view("register");
 })->middleware("guest")->middleware(CheckExistsSetup::class);
 Route::get('/', function (){
-    return view("dashboard");
+    return view("dashboard",["tasks" => \App\Tasks::where("recipient",\Illuminate\Support\Facades\Auth::id())]);
 })->name("Home")->middleware(checkAuth::class);
 Route::get('/profits',function (){
     return view("profits",["Clients" => \App\Clients::all("id","client")]);
@@ -84,6 +84,11 @@ Route::get("/settings/load_tasks_datatable","SettingsController@loadDataToDataTa
 Route::get("/settings/view_edit_task","SettingsController@viewTask")->name("ViewTask")->middleware(checkAuth::class);
 Route::get("/settings/remove_task","SettingsController@removeTask")->name("RemoveTask")->middleware(checkAuth::class);
 Route::get("/settings/mark_task_as_completed","SettingsController@markTaskAsCompleted")->name("MarkTaskAsCompleted")->middleware(checkAuth::class);
+// Notes
+Route::get("/settings/create_note","SettingsController@createNote")->name("CreateNote")->middleware(checkAuth::class);
+Route::get("/settings/load_notes_datatable","SettingsController@loadDataToDataTableNote")->name("LoadDataTableNote")->middleware(checkAuth::class);
+Route::get("/settings/view_edit_note","SettingsController@viewNote")->name("ViewNote")->middleware(checkAuth::class);
+Route::get("/settings/remove_note","SettingsController@removeNote")->name("RemoveNote")->middleware(checkAuth::class);
 
 // Auth Routes
 
