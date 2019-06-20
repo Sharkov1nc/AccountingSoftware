@@ -18,6 +18,7 @@ class CreateTasksTable extends Migration
             $table->string("name",64);
             $table->mediumText("task");
             $table->unsignedInteger("recipient");
+            $table->unsignedInteger("priority");
             $table->boolean("completed")->nullable(true);
             $table->timestamps();
         });

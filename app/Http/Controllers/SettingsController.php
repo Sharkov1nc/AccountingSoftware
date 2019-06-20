@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants;
 use App\Notes;
 use App\Permissions;
 use App\PermissionsPositionsM2M;
@@ -95,7 +96,8 @@ class SettingsController extends Controller
         Tasks::create([
             "name" => $request->get("task-name"),
             "recipient" => $request->get("task-recipient"),
-            'task' => $request->get('task'),
+            "task" => $request->get("task"),
+            "priority" => $request->get("task-priority"),
             "completed" => false
         ]);
     }
@@ -118,7 +120,11 @@ class SettingsController extends Controller
                 "completed",function ($task){
                 return $task->completed ? "<label class='label label-success'> Completed </label>" : "<label class='label label-primary'>Unfinished</label>";
             })
-            ->rawColumns(['actions','completed'])
+            ->addColumn(
+                "priority",function ($task){
+                return "<label class='label label-".Constants::iconsByPriority[$task->priority]."'> ".Constants::priorities[$task->priority]." </label>";
+            })
+            ->rawColumns(['actions','completed','priority'])
             ->make(true);
     }
 

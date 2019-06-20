@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class PermissionsPositionsM2M extends Model
 {
@@ -17,6 +18,19 @@ class PermissionsPositionsM2M extends Model
             $data[] = $perm->permissions->permission_code;
         }
         return $data;
+    }
+
+    static public function hasPermission($perm){
+       $permission = Permissions::where("permission_code",$perm)->first();
+       $user = User::where("id",Auth::id())->first();
+       $permExists = PermissionsPositionsM2M::where([
+           "permission" => $permission->id,
+           "position" => $user->position
+       ])->first();
+       if ($permExists) {
+           return true;
+       }
+       return false;
     }
 
     public function positions()

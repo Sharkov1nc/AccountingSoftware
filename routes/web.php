@@ -18,7 +18,11 @@ Route::get("/setup_form",function (){
     return view("register");
 })->middleware("guest")->middleware(CheckExistsSetup::class);
 Route::get('/', function (){
-    return view("dashboard",["tasks" => \App\Tasks::where("recipient",\Illuminate\Support\Facades\Auth::id())]);
+    return view("dashboard",
+        [
+            "tasks" => \App\Tasks::where("recipient",\Illuminate\Support\Facades\Auth::user()->getAuthIdentifier())->get(),
+            "notes" => \App\Notes::where("recipient",\Illuminate\Support\Facades\Auth::user()->getAuthIdentifier())->get()
+        ]);
 })->name("Home")->middleware(checkAuth::class);
 Route::get('/profits',function (){
     return view("profits",["Clients" => \App\Clients::all("id","client")]);

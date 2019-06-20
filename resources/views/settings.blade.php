@@ -195,6 +195,7 @@
                                         <th>Title</th>
                                         <th>Recipient</th>
                                         <th>Status</th>
+                                        <th>Priority</th>
                                         <th class="action-column">Actions</th>
                                     </tr>
                                     </thead>
@@ -244,6 +245,16 @@
                                                                                 <label class="col-sm-3 control-label">Task Content</label>
                                                                                 <div class="col-sm-6">
                                                                                     <textarea name="task" id="task" rows="6" class="form-control"></textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="form-group form-group-task">
+                                                                                <label class="col-sm-3 control-label">Priority</label>
+                                                                                <div class="col-sm-6">
+                                                                                    <select class="select2" name="task-priority" id="task-priority">
+                                                                                        @foreach(\App\Constants::priorities as $key => $value )
+                                                                                            <option value="{{$key}}">{{$value}}</option>
+                                                                                        @endforeach
+                                                                                    </select>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="form-group">
@@ -441,12 +452,13 @@
             ajax : '{{route("LoadDataTableTask") }}',
             columns: [
                 { data: "name" , name : "name" , width : "30%"},
-                { data: "recipient" , name : "recipient" , width : "30%"},
-                { data: "completed" , name : "completed" , width : "20%"},
+                { data: "recipient" , name : "recipient" , width : "20%"},
+                { data: "completed" , name : "completed" , width : "15%"},
+                { data: "priority" , name : "priority" , width : "15%"},
                 { data: "actions" , name : 'actions', width : "20%"}
             ],
             columnDefs: [
-                { className: "text-right", "targets": [3] }
+                { className: "text-right", "targets": [4] }
             ],
             dom:
             "<'row am-datatable-header'<'col-sm-6'l><'col-sm-6' f>>" +
@@ -618,6 +630,7 @@
                     $("#task-name").val(data.task.name);
                     $("#task").val(data.task.task);
                     $("#recipient-select").val([data.task.recipient]).trigger("change");
+                    $("#task-priority").val([data.task.priority]).trigger("change");
                     $(".form-group-task input").attr("disabled",true).css("color","black");
                     $(".form-group-task textarea").attr("disabled",true).css("color","black");
                     $(".form-group-task select").attr("disabled",true).css("color","black");

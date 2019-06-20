@@ -1,3 +1,4 @@
+@php $perms = "view_profits" @endphp
 @extends('default')
 @section('libsCSS')
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('amaretti/html/assets/lib/datatables/css/dataTables.bootstrap.min.css') }}"/>

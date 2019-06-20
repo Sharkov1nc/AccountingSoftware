@@ -54,18 +54,30 @@
             <ul class="sidebar-elements">
                 <li class=""><a href="{{route("Home")}}"><i class="icon s7-monitor"></i><span>Dashboard</span></a>
                 </li>
-                <li class=""><a href="{{route("Profits")}}"><i class="icon s7-piggy"></i><span>Profits</span></a>
-                </li>
-                <li class=""><a href="{{route("Expenses")}}"><i class="icon s7-calculator"></i><span>Expenses</span></a>
-                </li>
-                <li class=""><a href="{{route("Clients")}}"><i class="icon s7-users"></i><span>Clients</span></a>
-                </li>
-                <li class=""><a href="{{route("Timeline")}}"><i class="icon s7-shuffle"></i><span>Timeline</span></a>
-                </li>
-                <li class=""><a href="{{route("Settings")}}"><i class="icon s7-config"></i><span>Settings</span></a>
-                </li>
-                <li class=""><a href="{{route("Support")}}"><i class="icon s7-call"></i><span>Support</span></a>
-                </li>
+                @if(\App\PermissionsPositionsM2M::hasPermission("view_profits"))
+                    <li class=""><a href="{{route("Profits")}}"><i class="icon s7-piggy"></i><span>Profits</span></a>
+                    </li>
+                @endif
+                @if(\App\PermissionsPositionsM2M::hasPermission("view_expenses"))
+                    <li class=""><a href="{{route("Expenses")}}"><i class="icon s7-calculator"></i><span>Expenses</span></a>
+                    </li>
+                @endif
+                @if(\App\PermissionsPositionsM2M::hasPermission("view_clients"))
+                    <li class=""><a href="{{route("Clients")}}"><i class="icon s7-users"></i><span>Clients</span></a>
+                    </li>
+                @endif
+                @if(\App\PermissionsPositionsM2M::hasPermission("view_timeline"))
+                    <li class=""><a href="{{route("Timeline")}}"><i class="icon s7-shuffle"></i><span>Timeline</span></a>
+                    </li>
+                @endif
+                @if(\App\PermissionsPositionsM2M::hasPermission("view_settings"))
+                    <li class=""><a href="{{route("Settings")}}"><i class="icon s7-config"></i><span>Settings</span></a>
+                    </li>
+                @endif
+                @if(\App\PermissionsPositionsM2M::hasPermission("view_support"))
+                    <li class=""><a href="{{route("Support")}}"><i class="icon s7-call"></i><span>Support</span></a>
+                    </li>
+                @endif
             </ul>
             <!--Sidebar bottom content-->
         </div>
